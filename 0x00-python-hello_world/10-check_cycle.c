@@ -19,7 +19,7 @@ int check_cycle(listint_t *list)
     {
         hare = hare->next->next;
         turtoise = turtoise->next;
-        if (hare == turtoise)
+        if (hare == turtoise || hare == list)
         {
             cycle = 1;
             break;
