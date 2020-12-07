@@ -1,8 +1,3 @@
-/**
- * functions allowed
- * write, printf, putchar, puts, malloc, free
- */
-
 #include "lists.h"
 #include <stdio.h>
 /**
@@ -23,12 +18,12 @@ int check_cycle(listint_t *list)
     while (hare->next->next != NULL)
     {
         hare = hare->next->next;
-        turtoise = turtoise->next;
         if (hare == turtoise)
         {
             cycle = 1;
             break;
         }
+        turtoise = turtoise->next;
     }
 
     return (cycle);
