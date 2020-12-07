@@ -12,17 +12,17 @@ int check_cycle(listint_t *list)
     listint_t *turtoise = list;
     listint_t *hare = list;
 
-    if (list == NULL)
+    if (list == NULL || list->next == NULL)
         return (cycle);
 
     while (hare->next->next != NULL)
     {
-        hare = hare->next->next;
         if (hare == turtoise)
         {
             cycle = 1;
             break;
         }
+        hare = hare->next->next;
         turtoise = turtoise->next;
     }
 
