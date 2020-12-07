@@ -9,21 +9,23 @@
 int check_cycle(listint_t *list)
 {
     int cycle = 0;
-    listint_t *turtoise = list;
-    listint_t *hare = list;
-
+    listint_t *turtoise, *hare;
+    /* look if list is less than 2 nodes */
     if (list == NULL || list->next == NULL)
         return (cycle);
+    /* assign initial position to hare and turtoise */
+    hare = list->next->next;
+    turtoise = list->next;
 
-    while (hare->next->next != NULL)
+    while (hare->next->next)
     {
-        hare = hare->next->next;
-        turtoise = turtoise->next;
-        if (hare == turtoise || hare == list)
+        if (hare == turtoise)
         {
             cycle = 1;
             break;
         }
+        hare = hare->next->next;
+        turtoise = turtoise->next;
     }
 
     return (cycle);
