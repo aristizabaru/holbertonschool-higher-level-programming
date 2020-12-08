@@ -8,7 +8,7 @@ if number < 0:
 if abs(number) % 10 is 0:
     print("Last digit of {} is {} {}".format(
         number,  abs(number) % 10, "and is zero"))
-elif abs(number) % 10 > 5:
+elif abs(number) % 10 > 5 and number > 0:
     print("Last digit of {} is {}{} {}".format(
         number, signo, abs(number) % 10, "and is greater than 5"))
 else:
