@@ -42,8 +42,6 @@ int is_palindrome(listint_t **head)
                 }
                 return (IS_PALINDROME);
         }
-        else if (*head && !(*head)->next)
-                return (NOT_PALINDROME);
         else
                 return (IS_PALINDROME);
 }
