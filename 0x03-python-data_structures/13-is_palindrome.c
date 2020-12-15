@@ -20,7 +20,7 @@ int is_palindrome(listint_t **head)
 
         if (*head && (*head)->next)
         {
-                int buffer[1024 * 10];
+                int buffer[1024 * 5];
                 int length = 0;
                 int left = 0;
                 int right = 0;
