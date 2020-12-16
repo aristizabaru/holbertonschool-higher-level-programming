@@ -1,6 +1,12 @@
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>
 
+/**
+ * print_python_list_info - Print information about a pyhton list object
+ * @p: python object
+ * Description: Prints lenght, allocated memory and data types of the object (list)
+ * Return: Nothing
+ */
 void print_python_list_info(PyObject *p)
 {
         int i = 0;
