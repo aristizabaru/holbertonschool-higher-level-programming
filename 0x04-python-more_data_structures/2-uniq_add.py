@@ -1,11 +1,11 @@
 #!/usr/bin/python3
-def uniq_add(my_list=[]):
+def uniq_add(list=[]):
+    prev_n = 0
     result = 0
-    if my_list:
-        my_list.sort()
-        for i, num in enumerate(my_list):
-            if i < len(my_list) - 1 and num != my_list[i+1]:
+    if list:
+        list.sort()
+        for num in list:
+            if num != prev_n:
                 result += num
-            elif i == len(my_list)-1 and num != my_list[i-1]:
-                result += num
+                prev_n = num
     return result
