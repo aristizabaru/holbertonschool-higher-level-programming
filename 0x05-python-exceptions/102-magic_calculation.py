@@ -10,5 +10,4 @@ def magic_calculation(a, b):
         except:
             result = a + b
             break
-        finally:
-            return result
+    return result
