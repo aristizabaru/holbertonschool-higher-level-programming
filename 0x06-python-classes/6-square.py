@@ -1,14 +1,13 @@
 #!/usr/bin/python3
+"""Square class definition"""
+
+
 class Square:
+    """Represents a square
+
+    Attributes:
+        __size (int): size of a side of the square
     """
-     Square class returns the area given a size
-
-     Args:
-        size (int): Representation of size. Size must be >= 0
-
-     Attributes:
-        size (int): Representation of size. Size must be >= 0
-     """
 
     def __init__(self, size=0, position=(0, 0)):
         self.size = size
@@ -16,11 +15,18 @@ class Square:
 
     @property
     def size(self):
-        """Returns the size of the object"""
+        """getter of __size
+        Returns:
+            The size of the square
+        """
         return self.__size
 
     @size.setter
     def size(self, value):
+        """setter of __size
+        Args:
+            value (int): the size of a size of the square
+        """
         if not isinstance(value, int):
             raise TypeError("size must be an integer")
         elif value < 0:
@@ -30,16 +36,17 @@ class Square:
 
     @property
     def position(self):
-        """Returns the position of the object"""
+        """getter of __position
+        Returns:
+            The coordenates of the print position
+        """
         return self.__position
 
     @position.setter
     def position(self, value):
         """setter of __position
         Args:
-            value (tuple): position of the square in 2D space
-        Returns:
-            None
+            value (tuple): coordenates to print area
         """
         if type(value) is not tuple or len(value) != 2 or \
            type(value[0]) is not int or value[0] < 0 or \
@@ -49,14 +56,17 @@ class Square:
             self.__position = value
 
     def area(self):
-        """calculates the area of the size.
+        """calculates the area of the square.
 
         Returns:
-            The area."""
+            The area of the square"""
         return self.__size ** 2
 
     def my_print(self):
-        """prints a graphic representation of the area with a '#'"""
+        """prints a square
+
+        prints a graphic representation of the area with a '#'
+        """
         if self.__size == 0:
             print()
         else:
