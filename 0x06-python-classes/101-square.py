@@ -85,7 +85,7 @@ class Square:
             Formatted string representing the square
         """
         if self.__size == 0:
-            return "\n"
+            return ""
         else:
             string = ""
             for row in range(self.__position[1]):
