@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""Defines a single linkerd list"""
+
+
 class Node:
     """Represents a node in a singly linked list
     Attributes:
