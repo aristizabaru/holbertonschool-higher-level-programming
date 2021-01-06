@@ -80,9 +80,9 @@ class Square:
                 print()
 
     def __str__(self):
-        """prints a square
-
-        prints a graphic representation of the area with a '#'
+        """String representation of a Square instance
+        Returns:
+            Formatted string representing the square
         """
         if self.__size == 0:
             return "\n"
@@ -96,4 +96,4 @@ class Square:
                 for hash in range(self.__size):
                     string += "#"
                 string += "\n"
-        return string
+        return string[:-1]
