@@ -19,7 +19,7 @@ Checking for function docstring:
 
 Checking for PEP8:
 	 >>> import os
-	 >>> os.popen("3-say_my_name.py").read()
+	 >>> os.popen("pep8 3-say_my_name.py").read()
 	 ''
 
 Checking for last blank line:

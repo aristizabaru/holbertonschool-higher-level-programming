@@ -14,12 +14,12 @@ Checking for module docstring:
 
 Checking for function docstring:
 	>>> f = __import__("5-text_indentation").text_indentation.__doc__
-   >>> len(f) > 1
-   True
+	>>> len(f) > 1
+	True
 
 Checking for PEP8:
 	>>> import os
-	>>> os.popen("5-text_indentation").read()
+	>>> os.popen("pep8 5-text_indentation.py").read()
 	''
 
 Checking for last blank line:

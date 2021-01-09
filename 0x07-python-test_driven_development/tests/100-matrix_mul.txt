@@ -14,12 +14,12 @@ Checking for module docstring:
 
 Checking for function docstring:
 	>>> f = __import__("100-matrix_mul").matrix_mul.__doc__
-   >>> len(f) > 1
-   True
+	>>> len(f) > 1
+	True
 
 Checking for PEP8:
 	>>> import os
-	>>> os.popen("100-matrix_mul").read()
+	>>> os.popen("pep8 100-matrix_mul.py").read()
 	''
 
 Checking for last blank line:

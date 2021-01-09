@@ -1,193 +1,97 @@
-The ``matrix_divided`` module
+The ``add_intenger`` module
 ======================
 
-Using `matrix_divided``
+Using `add_interger``
 -------------------
 
 Importing the function from the module:
-	>>> matrix_divided = __import__("2-matrix_divided").matrix_divided
+	>>> add_integer = __import__("0-add_integer").add_integer
 
 Checking for module docstring:
-	 >>> m = __import__("2-matrix_divided").__doc__
+	 >>> m = __import__("0-add_integer").__doc__
 	 >>> len(m) > 1
 	 True
 
 Checking for function docstring:
-	 >>> f = __import__("2-matrix_divided").matrix_divided.__doc__
+	 >>> f = __import__("0-add_integer").add_integer.__doc__
          >>> len(f) > 1
          True
 
 Checking for PEP8:
 	 >>> import os
-	 >>> os.popen("2-matrix_divided.py").read()
+	 >>> os.popen("pep8 0-add_integer.py").read()
 	 ''
 
 Checking for last blank line:
-	 >>> os.popen("cat -e 2-matrix_divided.py | tail -1").read()[-1]
+	 >>> os.popen("cat -e 0-add_integer.py | tail -1").read()[-1]
 	 '\n'
 
-Checking regular division:
-	 >>> matrix_divided([[1, 2, 3], [4, 5, 6]], 3)
-	 [[0.33, 0.67, 1.0], [1.33, 1.67, 2.0]]
+Checking regular addition:
+	 >>> add_integer(1, 2)
+	 3
 
-Checking negative values in matrix:
-	 >>> matrix_divided([[-1, -10], [-4, -5]], 3)
-	 [[-0.33, -3.33], [-1.33, -1.67]]
+Checking positive with negative:
+	 >>> add_integer(2, -4)
+	 -2
 
-Checking negative divisor:
-	 >>> matrix_divided([[1, 10], [4, 5]], -3)
-	 [[-0.33, -3.33], [-1.33, -1.67]]
+Checking negative with positive:
+	 >>> add_integer(-6, 8)
+	 2
 
-Checking string in matrix:
-	 >>> matrix_divided([["h", 2, 3], [4, 5, 6]], 3)
+Checking float with int:
+	 >>> add_integer(2.1, 4)
+	 6
+
+Checking int with float:
+	 >>> add_integer(5, 7.8)
+	 12
+
+Checking both float:
+	 >>> add_integer(2.45, 3.1)
+	 5
+
+Checking for passed NaN:
+	 >>> add_integer(1, float('NaN'))
 	 Traceback (most recent call last):
 	 ...
-	 TypeError: matrix must be a matrix (list of lists) of integers/floats
+	 ValueError: cannot convert float NaN to integer
 
-Checking set in matrix:
-	 >>> matrix_divided([[{2}, 2, 3], [4, 5, 6]], 3)
+Checking for passed inf:
+	 >>> add_integer(1, float('inf'))
 	 Traceback (most recent call last):
 	 ...
-	 TypeError: matrix must be a matrix (list of lists) of integers/floats
+	 OverflowError: cannot convert float infinity to integer
 
-Checking tuple in matrix:
-	 >>> matrix_divided([[(2,4), 2, 3], [4, 5, 6]], 3)
+Checking super long int:
+	 >>> add_integer(999999999999999999999999999999, 1)
+	 1000000000000000000000000000000
+
+Checking non-number with number:
+	 >>> add_integer((1, 2), 2)
 	 Traceback (most recent call last):
 	 ...
-	 TypeError: matrix must be a matrix (list of lists) of integers/floats
+	 TypeError: a must be an integer
 
-Checking dictionary in matrix:
-	 >>> matrix_divided([[{2 : 4}, 2, 3], [4, 5, 6]], 3)
+Checking number with non-number:
+	 >>> add_integer(3, "2")
 	 Traceback (most recent call last):
 	 ...
-	 TypeError: matrix must be a matrix (list of lists) of integers/floats
+	 TypeError: b must be an integer
 
-Checking unidemensional list as matrix paramenter:
-	 >>> matrix_divided([1, 2, 3], 3)
+Checking non-number with non-number:
+	 >>> add_integer((2,), {"key": "value"})
+         Traceback (most recent call last):
+         ...
+         TypeError: a must be an integer
+
+Checking bool with number:
+	 >>> add_integer(True, 1)
 	 Traceback (most recent call last):
-	 ...
-	 TypeError: matrix must be a matrix (list of lists) of integers/floats
+         ...
+         TypeError: a must be an integer
 
-Checking int as matrix paramenter:
-	 >>> matrix_divided(1, 3)
-	 Traceback (most recent call last):
-	 ...
-	 TypeError: matrix must be a matrix (list of lists) of integers/floats
-
-Checking float as matrix paramenter:
-	 >>> matrix_divided(1.5, 3)
-	 Traceback (most recent call last):
-	 ...
-	 TypeError: matrix must be a matrix (list of lists) of integers/floats
-
-Checking string as matrix paramenter:
-	 >>> matrix_divided("G", 3)
-	 Traceback (most recent call last):
-	 ...
-	 TypeError: matrix must be a matrix (list of lists) of integers/floats
-
-Checking tuple as matrix paramenter:
-	 >>> matrix_divided((1, 2), 3)
-	 Traceback (most recent call last):
-	 ...
-	 TypeError: matrix must be a matrix (list of lists) of integers/floats
-
-Checking set as matrix paramenter:
-	 >>> matrix_divided({1, 2}, 3)
-	 Traceback (most recent call last):
-	 ...
-	 TypeError: matrix must be a matrix (list of lists) of integers/floats
-
-Checking dictionary as matrix paramenter:
-	 >>> matrix_divided({1:2, 2:2}, 3)
-	 Traceback (most recent call last):
-	 ...
-	 TypeError: matrix must be a matrix (list of lists) of integers/floats
-
-Checking string as div paramenter:
-	 >>> matrix_divided([[1, 2], [4, 3]], "s")
-	 Traceback (most recent call last):
-	 ...
-	 TypeError: div must be a number
-
-Checking tuple as div paramenter:
-	 >>> matrix_divided([[1, 2], [4, 3]], (1, 2))
-	 Traceback (most recent call last):
-	 ...
-	 TypeError: div must be a number
-
-Checking list as div paramenter:
-	 >>> matrix_divided([[1, 2], [4, 3]], [1, 2])
-	 Traceback (most recent call last):
-	 ...
-	 TypeError: div must be a number
-
-Checking set as div paramenter:
-	 >>> matrix_divided([[1, 2], [4, 3]], {1, 2})
-	 Traceback (most recent call last):
-	 ...
-	 TypeError: div must be a number
-
-Checking dictionary as div paramenter:
-	 >>> matrix_divided([[1, 2], [4, 3]], {1:2, 2:1})
-	 Traceback (most recent call last):
-	 ...
-	 TypeError: div must be a number
-
-Checking for passing None as matrix:
-	 >>> matrix_divided(None, 1)
-	 Traceback (most recent call last):
-	 ...
-	 TypeError: matrix must be a matrix (list of lists) of integers/floats
-
-Checking for list of mixed list and non-list items:
-	 >>> matrix = [[1, 2, 3], "Hello"]
-	 >>> matrix_divided(matrix, 1)
-	 Traceback (most recent call last):
-	 ...
-	 TypeError: matrix must be a matrix (list of lists) of integers/floats
-
-Checking for uneven matrix:
-	 >>> matrix = [[1, 2, 3], [4, 5, 6, 7]]
-	 >>> matrix_divided(matrix, 3)
-	 Traceback (most recent call last):
-	 ...
-	 TypeError: Each row of the matrix must have the same size
-
-Checking zero division:
-	 >>> matrix_divided([[1, 2], [4, 3]], 0)
-	 Traceback (most recent call last):
-	 ...
-	 ZeroDivisionError: division by zero
-
-Checking super long int as div:
-	 >>> matrix_divided([[1, 2], [4, 120100]], 999999999999999999999999999999)
-	 [[0.0, 0.0], [0.0, 0.0]]
-
-Checking for div as bool:
-    >>> matrix_divided([[1, 2, 3], [4, 5, 6]], True)
-    Traceback (most recent call last):
-    ...
-    TypeError: div must be a number
-
-Checking for empty matrix:
-	 >>> matrix_divided([], 1)
-	 []
-
-Checking for nx1 matrix:
-	 >>> matrix_divided([[1], [2], [3]], 2)
-	 [[0.5], [1.0], [1.5]]
-
-Checking for division with infinity in numerator:
-	 >>> matrix_divided([[1, float('inf'), 3], [4, 5, 6]], 1)
-	 [[1.0, inf, 3.0], [4.0, 5.0, 6.0]]
-
-Checking for division with infinity in numerator and denomenator
-	 >>> matrix_divided([[1, float('inf'), 3], [4, 5, 6]], float('inf'))
-	 [[0.0, nan, 0.0], [0.0, 0.0, 0.0]]
-
-Checking for passing None as div:
-	 >>> matrix_divided([[1, 2, 3], [4, 5, 6]], None)
-	 Traceback (most recent call last):
-	 ...
-	 TypeError: div must be a number
+Checking number with bool:
+	 >>> add_integer(0, False)
+         Traceback (most recent call last):
+         ...
+         TypeError: b must be an integer

@@ -125,8 +125,10 @@ def check_multiply(size_a, size_b):
     check if tow matrix can be multiplied
 
     Args:
-            size_a (list): list with two items representing the number [rows, colums] of a matrix
-            nsize_a (list): list with two items representing the number [rows, colums] of a matrix
+            size_a (list): list with two items representing
+                           the number [rows, colums] of a matrix
+            nsize_a (list): list with two items representing
+                            the number [rows, colums] of a matrix
     Return:
             raise Exception on error
     """

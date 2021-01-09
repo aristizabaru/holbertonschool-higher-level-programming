@@ -19,7 +19,7 @@ Checking for function docstring:
 
 Checking for PEP8:
 	 >>> import os
-	 >>> os.popen("2-matrix_divided.py").read()
+	 >>> os.popen("pep8 2-matrix_divided.py").read()
 	 ''
 
 Checking for last blank line:
