@@ -41,10 +41,10 @@ def matrix_mul(m_a, m_b=0):
     # check if they can be multiplied
     check_multiply(size_a, size_b)
 
-    news_matrix = [[sum(a*b for a, b in zip(A_row, B_col))
-                    for B_col in zip(*m_b)] for A_row in m_a]
+    new_matrix = [[sum(a*b for a, b in zip(A_row, B_col))
+                   for B_col in zip(*m_b)] for A_row in m_a]
 
-    return news_matrix
+    return new_matrix
 
 
 def check_list(matrix, name):
