@@ -1,17 +1,18 @@
 #!/usr/bin/python3
-"""Module matrix_mul
+"""Module lazy_matrix_mul
 
 Functions:
-    matrix_mul(m_a, m_b)
+    lazy_matrix_mul(m_a, m_b)
     check_list(matrix, name)
     check_matrix(matrix, name):
     check_number(matrix, name):
     check_size(matrix, name):
     check_multiply(size_a, size_b):
 """
+import numpy as np
 
 
-def matrix_mul(m_a, m_b=0):
+def lazy_matrix_mul(m_a, m_b):
     """matrix_mul()
     multiplies 2 matrices
 
@@ -40,11 +41,7 @@ def matrix_mul(m_a, m_b=0):
 
     # check if they can be multiplied
     check_multiply(size_a, size_b)
-
-    new_matrix = [[sum(a*b for a, b in zip(A_row, B_col))
-                   for B_col in zip(*m_b)] for A_row in m_a]
-
-    return new_matrix
+    return np.matmul(m_a, m_b)
 
 
 def check_list(matrix, name):
