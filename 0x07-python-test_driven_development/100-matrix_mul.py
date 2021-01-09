@@ -44,7 +44,7 @@ def matrix_mul(m_a, m_b=0):
     news_matrix = [[sum(a*b for a, b in zip(A_row, B_col))
                     for B_col in zip(*m_b)] for A_row in m_a]
 
-    print(news_matrix)
+    return"{}".format(news_matrix)
 
 
 def check_list(matrix, name):
