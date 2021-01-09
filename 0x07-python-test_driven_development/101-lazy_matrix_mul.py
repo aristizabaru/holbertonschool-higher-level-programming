@@ -55,9 +55,9 @@ def check_list(matrix, name):
             raise Exception on error
     """
     if type(matrix) is not list:
-        raise TypeError("{} must be a list".format(name))
+        raise TypeError("{} must be a list. Can't be multiplied".format(name))
     if len(matrix) == 0:
-        raise ValueError("{} can't be empty".format(name))
+        raise ValueError("{} can't be empty. Can't be multiplied".format(name))
 
 
 def check_matrix(matrix, name):
@@ -71,12 +71,15 @@ def check_matrix(matrix, name):
             raise Exception on error
     """
     if type(matrix[0]) is not list:
-        raise TypeError("{} must be a list of lists".format(name))
+        raise TypeError(
+            "{} must be a list of lists. Can't be multiplied".format(name))
     for row in matrix:
         if type(row) is not list:
-            raise TypeError("{} must be a list of lists".format(name))
+            raise TypeError(
+                "{} must be a list of lists. Can't be multiplied".format(name))
         if len(row) == 0:
-            raise ValueError("{} can't be empty".format(name))
+            raise ValueError(
+                "{} can't be empty. Can't be multiplied".format(name))
 
 
 def check_number(matrix, name):
@@ -94,7 +97,8 @@ def check_number(matrix, name):
         for item in row:
             if type(item) not in valid_types:
                 raise TypeError(
-                    "{} should contain only integers or floats".format(name))
+                    "{} should contain only integers or floats. "
+                    "Can't be multiplied".format(name))
 
 
 def check_size(matrix, name):
@@ -112,7 +116,8 @@ def check_size(matrix, name):
     for row in matrix:
         if base_col != len(row):
             raise TypeError(
-                "each row of {} must be of the same size".format(name))
+                "each row of {} must be of the same size. "
+                "Can't be multiplied".format(name))
 
     return [base_row, base_col]
 
@@ -130,4 +135,6 @@ def check_multiply(size_a, size_b):
             raise Exception on error
     """
     if size_a[1] != size_b[0]:
-        raise ValueError("m_a and m_b can't be multiplied")
+        raise ValueError(
+            "m_a and m_b can't be multiplied. "
+            "Colums of m_a has to be equal to rows of m_b")

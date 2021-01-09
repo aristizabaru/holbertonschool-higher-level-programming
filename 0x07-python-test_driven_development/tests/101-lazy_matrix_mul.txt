@@ -30,64 +30,64 @@ Checking for passing non-list as m_a:
 	 >>> lazy_matrix_mul(None, [[1, 2], [3, 4]])
 	 Traceback (most recent call last):
 	 ...
-	 TypeError: m_a must be a list
+	 TypeError: m_a must be a list. Can't be multiplied
 
 Checking for passing non-list to m_b:
 	 >>> lazy_matrix_mul([[1, 2], [3, 4]], None)
 	 Traceback (most recent call last):
 	 ...
-	 TypeError: m_b must be a list
+	 TypeError: m_b must be a list. Can't be multiplied
 
 Checking for passing empty m_a:
 	 >>> lazy_matrix_mul([], [[1, 2], [3, 4]])
 	 Traceback (most recent call last):
 	 ...
-	 ValueError: m_a can't be empty
+	 ValueError: m_a can't be empty. Can't be multiplied
 
 Checking for passing m_a with empty rows:
 	 >>> lazy_matrix_mul([[], []], [[1, 2], [3, 4]])
 	 Traceback (most recent call last):
 	 ...
-	 ValueError: m_a can't be empty
+	 ValueError: m_a can't be empty. Can't be multiplied
 
 Checking for passing empty m_b:
 	 >>> lazy_matrix_mul([[1, 2], [3, 4]], [])
 	 Traceback (most recent call last):
 	 ...
-	 ValueError: m_b can't be empty
+	 ValueError: m_b can't be empty. Can't be multiplied
 
 Checking for passing m_b with empty rows:
 	 >>> lazy_matrix_mul([[1, 2], [3, 4]], [[]])
 	 Traceback (most recent call last):
 	 ...
-	 ValueError: m_b can't be empty
+	 ValueError: m_b can't be empty. Can't be multiplied
 
 Checking for uneven m_a:
 	 >>> lazy_matrix_mul([[1, 2], [3, 4, 5]], [[1, 2], [3, 4]])
 	 Traceback (most recent call last):
 	 ...
-	 TypeError: each row of m_a must be of the same size
+	 TypeError: each row of m_a must be of the same size. Can't be multiplied
 
 Checking for uneven m_b:
 	 >>> lazy_matrix_mul([[1, 2], [3, 4]], [[1, 2], [3, 4, 5]])
 	 Traceback (most recent call last):
 	 ...
-	 TypeError: each row of m_b must be of the same size
+	 TypeError: each row of m_b must be of the same size. Can't be multiplied
 
 Checking for non-number in list in m_a:
 	 >>> lazy_matrix_mul([[1, "Hello"], [3, 4]], [[1, 2], [3, 4]])
 	 Traceback (most recent call last):
 	 ...
-	 TypeError: m_a should contain only integers or floats
+	 TypeError: m_a should contain only integers or floats. Can't be multiplied
 
 Checking for non-number in list in m_b:
 	 >>> lazy_matrix_mul([[1, 2], [3, 4]], [[1, "Hello"], [3, 4]])
 	 Traceback (most recent call last):
 	 ...
-	 TypeError: m_b should contain only integers or floats
+	 TypeError: m_b should contain only integers or floats. Can't be multiplied
 
 Checking for mismatching matrices:
 	 >>> lazy_matrix_mul([[1, 2, 3], [4, 5, 6]], [[1, 2], [3, 4,]])
 	 Traceback (most recent call last):
 	 ...
-	 ValueError: m_a and m_b can't be multiplied
+	 ValueError: m_a and m_b can't be multiplied. Colums of m_a has to be equal to rows of m_b
