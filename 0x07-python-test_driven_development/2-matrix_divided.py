@@ -4,7 +4,6 @@
 Functions:
     matrix_divided(matrix, div)
 """
-import sys
 
 
 def matrix_divided(matrix, div):
