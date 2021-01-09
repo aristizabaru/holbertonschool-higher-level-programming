@@ -30,64 +30,64 @@ Checking for passing non-list as m_a:
 	 >>> lazy_matrix_mul(None, [[1, 2], [3, 4]])
 	 Traceback (most recent call last):
 	 ...
-	 Exception: m_a must be a list. Can't be multiplied
+	 TypeError: Object arrays are not currently supported
 
 Checking for passing non-list to m_b:
 	 >>> lazy_matrix_mul([[1, 2], [3, 4]], None)
 	 Traceback (most recent call last):
 	 ...
-	 Exception: m_b must be a list. Can't be multiplied
+	 TypeError: Object arrays are not currently supported
 
 Checking for passing empty m_a:
 	 >>> lazy_matrix_mul([], [[1, 2], [3, 4]])
 	 Traceback (most recent call last):
 	 ...
-	 Exception: m_a can't be empty. Can't be multiplied
+	 ValueError: shapes (0,) and (2,2) not aligned: 0 (dim 0) != 2 (dim 0)
 
 Checking for passing m_a with empty rows:
 	 >>> lazy_matrix_mul([[], []], [[1, 2], [3, 4]])
 	 Traceback (most recent call last):
 	 ...
-	 Exception: m_a can't be empty. Can't be multiplied
+	 ValueError: shapes (2,0) and (2,2) not aligned: 0 (dim 1) != 2 (dim 0)
 
 Checking for passing empty m_b:
 	 >>> lazy_matrix_mul([[1, 2], [3, 4]], [])
 	 Traceback (most recent call last):
 	 ...
-	 Exception: m_b can't be empty. Can't be multiplied
+	 ValueError: shapes (2,2) and (0,) not aligned: 2 (dim 1) != 0 (dim 0)
 
 Checking for passing m_b with empty rows:
 	 >>> lazy_matrix_mul([[1, 2], [3, 4]], [[]])
 	 Traceback (most recent call last):
 	 ...
-	 Exception: m_b can't be empty. Can't be multiplied
+	 ValueError: shapes (2,2) and (1,0) not aligned: 2 (dim 1) != 1 (dim 0)
 
 Checking for uneven m_a:
 	 >>> lazy_matrix_mul([[1, 2], [3, 4, 5]], [[1, 2], [3, 4]])
 	 Traceback (most recent call last):
 	 ...
-	 Exception: each row of m_a must be of the same size. Can't be multiplied
+	 ValueError: setting an array element with a sequence.
 
 Checking for uneven m_b:
 	 >>> lazy_matrix_mul([[1, 2], [3, 4]], [[1, 2], [3, 4, 5]])
 	 Traceback (most recent call last):
 	 ...
-	 Exception: each row of m_b must be of the same size. Can't be multiplied
+	 ValueError: setting an array element with a sequence.
 
 Checking for non-number in list in m_a:
 	 >>> lazy_matrix_mul([[1, "Hello"], [3, 4]], [[1, 2], [3, 4]])
 	 Traceback (most recent call last):
 	 ...
-	 Exception: m_a should contain only integers or floats. Can't be multiplied
+	 TypeError: invalid data type for einsum
 
 Checking for non-number in list in m_b:
 	 >>> lazy_matrix_mul([[1, 2], [3, 4]], [[1, "Hello"], [3, 4]])
 	 Traceback (most recent call last):
 	 ...
-	 Exception: m_b should contain only integers or floats. Can't be multiplied
+	 TypeError: invalid data type for einsum
 
 Checking for mismatching matrices:
 	 >>> lazy_matrix_mul([[1, 2, 3], [4, 5, 6]], [[1, 2], [3, 4,]])
 	 Traceback (most recent call last):
 	 ...
-	 Exception: m_a and m_b can't be multiplied. Colums of m_a has to be equal to rows of m_b
+	 ValueError: shapes (2,3) and (2,2) not aligned: 3 (dim 1) != 2 (dim 0)
