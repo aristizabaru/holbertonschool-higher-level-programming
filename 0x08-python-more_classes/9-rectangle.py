@@ -7,10 +7,10 @@ class Rectangle:
     """Creates a rectangle object
 
     Class attributes:
-        number_of_instances (int): number of instances the class
-                                   Rectangle has initializated
-         print_symbol (object): used as symbol for string representation.
-                                It has to be an iterable object
+        number_of_instances (int): number of instances the
+                                   class Rectangle has initializated
+         print_symbol (object): used as symbol for string representation. It
+                                has to be an iterable object
 
     Attributes:
         width (int): value representing the width of a square
