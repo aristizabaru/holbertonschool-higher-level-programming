@@ -135,7 +135,7 @@ class Rectangle:
     # Class methods
     @classmethod
     def square(cls, size=0):
-        """Create a new Rectangle instance 
+        """Create a new Rectangle instance
 
         Arguments
             size (int): present width and height of the new instance
