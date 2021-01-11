@@ -29,7 +29,8 @@ class Rectangle:
         square(cls, size=0): Create a new Rectangle instance
 
     Static Methods:
-        bigger_or_equal(rect_1, rect_2): Returns the biggest rectangle based on the area
+        bigger_or_equal(rect_1, rect_2): Returns the biggest rectangle
+                                         based on the area
     """
     number_of_instances = 0
     print_symbol = "#"
