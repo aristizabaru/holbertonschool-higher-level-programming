@@ -19,9 +19,10 @@ This is an educational project in which a `Rectangle` class is create
 
 ## File Descriptions
 
-### Mandatory
+### 0. Simple rectangle
 
 **[0-rectangle.py](0-rectangle.py)**
+
 Write an empty class Rectangle that defines a rectangle.
 
 ```
@@ -39,7 +40,10 @@ guillaume@ubuntu:~/0x08$ ./0-main.py
 guillaume@ubuntu:~/0x08$
 ```
 
+### 1. Real definition of a rectangle
+
 **[1-rectangle.py](1-rectangle.py)**
+
 Write a class Rectangle that defines a rectangle by: (based on [0-rectangle.py](0-rectangle.py))
 
 -  Private instance attribute: `width`:
@@ -81,7 +85,10 @@ Holberton is not an integer
 guillaume@ubuntu:~/0x05$
 ```
 
+### 2. Area and Perimeter
+
 **[2-rectangle.py](2-rectangle.py)**
+
 Write a class Rectangle that defines a rectangle by: (based on [1-rectangle.py](1-rectangle.py))
 
 -  Private instance attribute: `width`:
@@ -120,7 +127,10 @@ Area: 30 - Perimeter: 26
 guillaume@ubuntu:~/0x08$
 ```
 
+### 3. String representation
+
 **[3-rectangle.py](3-rectangle.py)**
+
 Write a class Rectangle that defines a rectangle by: (based on [2-rectangle.py](2-rectangle.py))
 
 -  Private instance attribute: `width`:
@@ -173,7 +183,10 @@ Area: 8 - Perimeter: 12
 guillaume@ubuntu:~/0x08$
 ```
 
+### 4. Eval is magic
+
 **[4-rectangle.py](4-rectangle.py)**
+
 Write a class Rectangle that defines a rectangle by: (based on [3-rectangle.py](3-rectangle.py))
 
 -  Private instance attribute: `width`:
@@ -257,7 +270,10 @@ True
 guillaume@ubuntu:~/0x08$
 ```
 
+### 5. Detect instance deletion
+
 **[5-rectangle.py](5-rectangle.py)**
+
 Write a class Rectangle that defines a rectangle by: (based on [4-rectangle.py](4-rectangle.py))
 
 -  Private instance attribute: `width`:
@@ -301,7 +317,10 @@ Bye rectangle...
 guillaume@ubuntu:~/0x08$
 ```
 
+### 6. How many instances
+
 **[6-rectangle.py](6-rectangle.py)**
+
 Write a class Rectangle that defines a rectangle by: (based on [5-rectangle.py](5-rectangle.py))
 
 -  Private instance attribute: `width`:
@@ -349,7 +368,10 @@ Bye rectangle...
 guillaume@ubuntu:~/0x08$
 ```
 
+### 7. Change representation
+
 **[7-rectangle.py](7-rectangle.py)**
+
 Write a class Rectangle that defines a rectangle by: (based on [6-rectangle.py](6-rectangle.py))
 
 -  Private instance attribute: `width`:
@@ -437,7 +459,10 @@ Bye rectangle...
 guillaume@ubuntu:~/0x08$
 ```
 
+### 8. Compare rectangles
+
 **[8-rectangle.py](8-rectangle.py)**
+
 Write a class Rectangle that defines a rectangle by: (based on [7-rectangle.py](7-rectangle.py))
 
 -  Private instance attribute: `width`:
@@ -499,6 +524,8 @@ Bye rectangle...
 Bye rectangle...
 guillaume@ubuntu:~/0x08$
 ```
+
+### 9. A square is a rectangle
 
 **[9-rectangle.py](9-rectangle.py)**
 Write a class Rectangle that defines a rectangle by: (based on [8-rectangle.py](8-rectangle.py))
