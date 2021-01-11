@@ -11,8 +11,8 @@ class Rectangle:
         height (int): value representing the height of a square
 
     Methods:
-        area(self)
-        perimeter(self)
+        area(self) : Returns object's area
+        perimeter(self): Returns object's perimeter
     """
 
     def __init__(self, width=0, height=0):

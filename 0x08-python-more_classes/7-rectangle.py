@@ -7,8 +7,8 @@ class Rectangle:
     """Creates a rectangle object
 
     Class attributes:
-        number_of_instances (int): number of instances the class Rectangle
-                                   has initializated
+        number_of_instances (int): number of instances the
+                                   class Rectangle has initializated
          print_symbol (object): used as symbol for string representation. It
                                 has to be an iterable object
 
@@ -19,6 +19,11 @@ class Rectangle:
     Methods:
         area(self) : Returns object's area
         perimeter(self): Returns object's perimeter
+
+    Magic Methods:
+        __str__(self): Returns object's printable representation
+        __repr__(self): Returns object's representation
+        __del__(self): Prints message before object's destruction
     """
     number_of_instances = 0
     print_symbol = "#"

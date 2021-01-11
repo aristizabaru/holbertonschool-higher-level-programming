@@ -19,6 +19,17 @@ class Rectangle:
     Methods:
         area(self) : Returns object's area
         perimeter(self): Returns object's perimeter
+
+    Magic Methods:
+        __str__(self): Returns object's printable representation
+        __repr__(self): Returns object's representation
+        __del__(self): Prints message before object's destruction
+
+    Class Methods:
+        square(cls, size=0): Create a new Rectangle instance
+
+    Static Methods:
+        bigger_or_equal(rect_1, rect_2): Returns the biggest rectangle based on the area
     """
     number_of_instances = 0
     print_symbol = "#"
@@ -63,7 +74,6 @@ class Rectangle:
         self.__height = value
 
     # Methods
-
     def area(self):
         """Returns object's area
         """
