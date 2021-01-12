@@ -13,7 +13,7 @@ def copy_list(lis):
         lis (list): list to be duplicated
 
     Return:
-        copy of `lis``
+        copy of `lis`
     """
     new_list = lis[:]
     return new_list
