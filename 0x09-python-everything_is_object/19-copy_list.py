@@ -2,18 +2,18 @@
 """19-copy_list module
 
 Functions:
-    copy_list(l)
+    copy_list(lis)
 """
 
 
-def copy_list(l):
+def copy_list(lis):
     """copy a list and return a new one
 
     Arguments:
-        l (list): list to be duplicated
+        lis (list): list to be duplicated
 
     Return:
-        copy of `l``
+        copy of `lis``
     """
-    new_list = l[:]
+    new_list = lis[:]
     return new_list
