@@ -1,3 +1,4 @@
 #!/usr/bin/python3
 def magic_string(a=[]):
-    return str(a += ["Holberton"])[1:-1]
+    a += ["Holberton"]
+    return str(a)[1:-1]
