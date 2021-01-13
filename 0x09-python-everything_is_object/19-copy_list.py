@@ -10,7 +10,7 @@ def copy_list(lis):
     """copy a list and return a new one
 
     Arguments:
-        lis (list): list to be duplicated
+        lis(list): list to be duplicated
 
     Return:
         copy of `lis`
