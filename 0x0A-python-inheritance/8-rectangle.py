@@ -16,7 +16,7 @@ class Rectangle(BaseGeometry):
     """
 
     def __init__(self, width, height):
-         """Creates object
+        """Creates object
 
         Arguments
             width (int): width value
