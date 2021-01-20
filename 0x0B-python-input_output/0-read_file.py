@@ -12,4 +12,5 @@ def read_file(filename=""):
         filename (str): string with file's path
     """
     with open(filename, encoding="utf-8") as fd:
-        print(fd.read())
+        data = fd.read()
+    print(data)
