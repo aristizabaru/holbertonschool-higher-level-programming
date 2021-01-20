@@ -31,16 +31,16 @@ class Student:
         json_dict = dict()
         is_string = True
         # look if attrs is valid and only has strings
-        if attrs != None:
+        if attrs is not None:
             for attribute in attrs:
                 if type(attribute) is not str:
                     is_string = False
                     break
-            if is_string == True:
+            if is_string is True:
                 for attribute in attrs:
                     if hasattr(self, attribute):
                         json_dict[attribute] = self.__dict__[attribute]
-        if attrs == None or is_string == False:
+        if attrs is None or is_string is False:
             for attribute in self.__dict__:
                 json_dict[attribute] = self.__dict__[attribute]
         return json_dict
