@@ -19,7 +19,7 @@ try:
         start_idx = data.rfind(" ") + 1
         file_size += int(data[start_idx:])
         # find status codes
-        code = data[start_idx - 4: start_idx]
+        code = data[start_idx - 4: start_idx - 1]
         # count status codes
         if code in status_codes:
             status_codes[code] += 1
