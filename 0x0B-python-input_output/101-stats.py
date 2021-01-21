@@ -24,8 +24,10 @@ try:
             status_codes[code] = 1
         if lines % 10 == 0:
             print("File size: {}".format(file_size))
-            for key in status_codes:
-                print("{}: {}".format(key, status_codes[key]))
+            sort_codes = sorted(status_codes.items())
+            status_codes.clear()
+            for key, value in sort_codes:
+                print("{}: {}".format(key, value))
         lines += 1
 except KeyboardInterrupt:
     print("File size: {}".format(file_size))
