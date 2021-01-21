@@ -4,6 +4,8 @@
 Reads stdin line by line and computes metrics
 """
 import sys
+
+
 # config
 lines = 1
 file_size = 0
@@ -11,6 +13,8 @@ status_codes = dict()
 # print line
 try:
     for data in sys.stdin:
+        data = data.rstrip()
+        # print(data)
         # find file size
         start_idx = data.rfind(" ") + 1
         file_size += int(data[start_idx:])
@@ -27,6 +31,7 @@ try:
             status_codes.clear()
             for key, value in sort_codes:
                 print("{}: {}".format(key, value))
+            # print("-"*50)
         lines += 1
 except KeyboardInterrupt:
     print("File size: {}".format(file_size))
