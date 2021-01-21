@@ -3,15 +3,14 @@
 
 Reads stdin line by line and computes metrics
 """
-
+import sys
 # config
 lines = 1
 file_size = 0
 status_codes = dict()
 # print line
 try:
-    while True:
-        data = input()
+    for data in sys.stdin:
         # find file size
         start_idx = data.rfind(" ") + 1
         file_size += int(data[start_idx:])
