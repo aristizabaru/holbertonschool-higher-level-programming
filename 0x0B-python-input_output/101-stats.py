@@ -32,6 +32,11 @@ try:
                 print("{}: {}".format(key, value))
             # print("-"*50)
         lines += 1
+    # if program ends print
+    print("File size: {}".format(file_size))
+    sort_codes = sorted(status_codes.items())
+    for key, value in sort_codes:
+        print("{}: {}".format(key, value))
 except KeyboardInterrupt:
     print("File size: {}".format(file_size))
     sort_codes = sorted(status_codes.items())
