@@ -14,12 +14,17 @@ status_codes = dict()
 try:
     for data in sys.stdin:
         data = data.rstrip()
-        # print(data)
         # find file size
         start_idx = data.rfind(" ") + 1
+        # check if value is digit
+        if data[start_idx:].isdigit() is False:
+            continue
         file_size += int(data[start_idx:])
         # find status codes
         code = data[start_idx - 4: start_idx - 1]
+        # check if value is digit
+        if code.isdigit() is False:
+            continue
         # count status codes
         if code in status_codes:
             status_codes[code] += 1
@@ -30,7 +35,6 @@ try:
             sort_codes = sorted(status_codes.items())
             for key, value in sort_codes:
                 print("{}: {}".format(key, value))
-            # print("-"*50)
         lines += 1
     # if program ends print
     print("File size: {}".format(file_size))
