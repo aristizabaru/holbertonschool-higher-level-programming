@@ -17,7 +17,4 @@ def class_to_json(obj):
     Return:
         dictionary with key:value of attributes
     """
-    json_dict = dict()
-    for attribute in obj.__dict__:
-        json_dict[attribute] = obj.__dict__[attribute]
-    return json_dict
+    return obj.__dict__

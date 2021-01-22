@@ -28,7 +28,4 @@ class Student:
     def to_json(self):
         """retrieves a dictionary representation of a Student instance
         """
-        json_dict = dict()
-        for attribute in self.__dict__:
-            json_dict[attribute] = self.__dict__[attribute]
-        return json_dict
+        return self.__dict__

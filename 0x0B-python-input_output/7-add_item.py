@@ -17,10 +17,5 @@ try:
 except Exception:
     json_object = list()
 # read arguments from stdin
-arguments = list()
-for arg in sys.argv:
-    arguments.append(arg)
-del arguments[0]
-# merge lists
-json_object += arguments
+json_object += sys.argv[1:]
 save_to_json_file(json_object, file_name)
