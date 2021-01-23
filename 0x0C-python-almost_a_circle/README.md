@@ -58,9 +58,8 @@ guillaume@ubuntu:~/$
 
 ### 1. Base class
 
-**[models/base.py](models/base.py)**
-
-**[models/**init**.py](models/__init__.py)**
+**[models/base.py](models/base.py)**  
+**[models/**init**.py](models/**init**.py)**
 
 Write the first class `Base`:
 
