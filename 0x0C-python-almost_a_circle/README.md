@@ -40,8 +40,6 @@ This project is conceived to be carried out step by step, that is why the descri
 
 ### 0. If it's not tested it doesn't work
 
-**[0-read_file.py](00-read_file.py)**
-
 All your files, classes and methods must be unit tested and be PEP 8 validated.
 
 _Note that this is just an example. The number of tests you create can be different from the above example._
@@ -60,7 +58,9 @@ guillaume@ubuntu:~/$
 
 ### 1. Base class
 
-**[0-read_file.py](00-read_file.py)**
+**[models/base.py](models/base.py)**
+
+**[models/**init**.py](models/__init__.py)**
 
 Write the first class `Base`:
 
