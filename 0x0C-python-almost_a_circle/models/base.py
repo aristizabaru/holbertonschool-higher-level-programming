@@ -220,11 +220,9 @@ class Base:
                 # print rectangle
                 for i in range(4):
                     if i in [0, 2]:
-                        print("width: ", obj.width)
                         my_turtle.forward(obj.width)
                     else:
                         my_turtle.forward(obj.height)
-                        print("height: ", obj.height)
                     my_turtle.left(90)
                 my_turtle.end_fill()
                 my_turtle.penup()
