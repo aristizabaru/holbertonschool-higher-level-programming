@@ -59,9 +59,9 @@ class Base:
             dictionary (dict): packed key, value arguments
         """
         if cls.__name__ == "Rectangle":
-            dummy = cls(width=1, height=1, x=1, y=1)
+            dummy = cls(width=1, height=1)
         else:
-            dummy = cls(size=1, x=1, y=1)
+            dummy = cls(size=1)
         dummy.update(**dictionary)
         return dummy
 
