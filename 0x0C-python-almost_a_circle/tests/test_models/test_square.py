@@ -315,8 +315,7 @@ class TestSquare(unittest.TestCase):
 
     def test_stf_empty(self):
         """test save_to_file with empty list"""
-        my_l = []
-        Square.save_to_file(my_l)
+        Square.save_to_file([])
         with open("Square.json", "r") as f:
             self.assertEqual("[]", f.read())
 
