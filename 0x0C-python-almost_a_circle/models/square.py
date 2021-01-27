@@ -37,21 +37,20 @@ class Square(Rectangle):
             y (int): y coordenate
             id (int): object identificator
         """
-        self.size = size
         super().__init__(self.size, self.size, x, y, id)
 
     # properties
     @property
     def size(self):
         """return size"""
-        return self.__size
+        return self.width
 
     # setters
     @size.setter
     def size(self, value):
         """sets size"""
-        super().update(**{"width": value})
-        self.__size = value
+        self.width = value
+        self.height = value
 
     # methods
     def update(self, *args, **kwargs):
