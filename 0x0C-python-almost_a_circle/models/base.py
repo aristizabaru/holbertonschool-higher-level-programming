@@ -77,9 +77,11 @@ class Base:
         # get all objects attributes to list of dictionaries
         if list_objs is not None and len(list_objs) > 0:
             list_to_json = [obj.to_dictionary() for obj in list_objs]
-        # serialize to `<Class name>.json` from `list_to_json`
+        # serialize from `list_to_json`
+        list_to_json = cls.to_json_string(list_to_json)
+        # save to `<Class name>.json` from `list_to_json`
         with open(str(cls.__name__) + ".json", "w", encoding="utf-8") as fd:
-            json.dump(list_to_json, fd)
+            fd.write(list_to_json)
 
     @classmethod
     def load_from_file(cls):
