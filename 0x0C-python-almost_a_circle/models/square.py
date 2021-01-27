@@ -37,7 +37,7 @@ class Square(Rectangle):
             y (int): y coordenate
             id (int): object identificator
         """
-        super().__init__(self.size, self.size, x, y, id)
+        super().__init__(size, size, x, y, id)
 
     # properties
     @property
