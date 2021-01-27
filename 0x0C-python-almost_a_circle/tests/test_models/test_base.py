@@ -2,12 +2,16 @@
 """
 Test for Base class
 """
+from models import rectangle
+from models import square
 import unittest
 import inspect
 import pep8
 import json
 from models import base
 Base = base.Base
+Square = square.Square
+Rectangle = rectangle.Rectangle
 
 
 class TestBaseDocs(unittest.TestCase):
@@ -118,3 +122,23 @@ class TestBase(unittest.TestCase):
     def test_fjs_None(self):
         """Tests from_json_string with an empty string"""
         self.assertEqual([], Base.from_json_string(None))
+
+    def test_stf_empty(self):
+        """test save_to_file with empty list"""
+        Square.save_to_file([])
+        with open("Square.json", "r") as f:
+            self.assertEqual("[]", f.read())
+
+    def test_stf_empty_Rectangle(self):
+        """test save_to_file with empty list"""
+        Rectangle.save_to_file([])
+        with open("Rectangle.json", "r") as f:
+            self.assertEqual("[]", f.read())
+
+    def test_O_save_to_file(self):
+        """
+        Testing save_to_file empty
+        """
+        Base.save_to_file([])
+        with open("Base.json", 'r') as file:
+            self.assertEqual('[]', file.read())
