@@ -119,7 +119,7 @@ id  name
 $
 ```
 
-<img src="1.pgn">
+<img src="1.png">
 
 ### 0. My privileges!
 
