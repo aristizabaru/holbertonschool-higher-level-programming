@@ -19,7 +19,7 @@ This is an educational project to explore several conceptos about SQL and MySQL
 
 -  MySQL 5.7
 
-**Read or watch:**
+## Read or watch
 
 -  [How To Create a New User and Grant Permissions in MySQL](https://www.digitalocean.com/community/tutorials/how-to-create-a-new-user-and-grant-permissions-in-mysql)
 -  [How To Use MySQL GRANT Statement To Grant Privileges To a User](https://www.mysqltutorial.org/mysql-grant.aspx)
