@@ -1,8 +1,9 @@
 #!/usr/bin/node
 'use strict';
-const numbers = process.argv.sort();
-if (numbers.length <= 3) {
-  console.log(0);
-} else {
-  console.log(numbers[numbers.length - 2]);
+const numbers = process.argv.slice(2);
+let result = 0;
+if (numbers.length > 1) {
+  numbers.sort();
+  result = numbers[numbers.length - 2];
 }
+console.log(result);
