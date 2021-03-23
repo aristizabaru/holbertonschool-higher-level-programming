@@ -1,9 +1,15 @@
 #!/usr/bin/node
 'use strict';
-const numbers = process.argv.slice(2);
+let numbers = process.argv.slice(2);
 let result = 0;
+
+function getUnique (value, index, self) {
+  return (self.indexOf(value) === index);
+}
+
 if (numbers.length > 1) {
-  numbers.sort();
-  result = numbers[numbers.length - 2];
+  numbers = numbers.filter(getUnique);
+  numbers.sort(function (a, b) { return b - a; });
+  result = numbers[1];
 }
 console.log(result);
