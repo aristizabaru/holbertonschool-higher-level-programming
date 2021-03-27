@@ -17,7 +17,8 @@ def main():
     # Get arguments from command line
     route, username, password, database = sys.argv
     # Compose query
-    query = "SELECT * FROM cities ORDER BY cities.id ASC LIMIT 15"
+    query = "SELECT cities.id, cities.name, states.name FROM cities \
+    JOIN states ON cities.state_id = states.id ORDER BY cities.id"
     # Connect to DB
     db = MySQLdb.connect(user=username, passwd=password, db=database)
     # Create cursor to execute queries and use with to close connections
