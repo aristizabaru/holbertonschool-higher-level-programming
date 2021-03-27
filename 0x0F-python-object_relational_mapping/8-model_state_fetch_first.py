@@ -31,7 +31,10 @@ def main():
     records = session.query(State).order_by(State.id).first()
 
     # Show data
-    print("{}: {}".format(records.id, records.name))
+    if records is None:
+        print("Nothing")
+    else:
+        print("{}: {}".format(records.id, records.name))
 
     session.close()
 
