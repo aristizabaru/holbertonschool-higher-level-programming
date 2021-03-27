@@ -1,534 +1,815 @@
-# 0x13. JavaScript - Objects, Scopes and Closures
+# 0x0F. Python - Object-relational mapping
 
 ## About
 
-This is an educational project to explore several conceptos about Javascript objects.
+This is an educational project to explore several conceptos about Python and how to connect it using DBAPI-249 and ORM.
+
+**Background Context**
+
+In this project, you will link two amazing worlds: Databases and Python!
+
+In the first part, you will use the module `MySQLdb` to connect to a MySQL database and execute your SQL queries.
+
+In the second part, you will use the module `SQLAlchemy` (don’t ask me how to pronounce it…) an Object Relational Mapper (ORM).
+
+The biggest difference is: no more SQL queries! Indeed, the purpose of an ORM is to abstract the storage to the usage. With an ORM, your biggest concern will be “What can I do with my objects” and not “How this object is stored? where? when?”. You won’t write any SQL queries only Python code. Last thing, your code won’t be “storage type” dependent. You will be able to change your storage easily without re-writing your entire project.
+
+Without ORM:
+
+```
+conn = MySQLdb.connect(host="localhost", port=3306, user="root", passwd="root", db="my_db", charset="utf8")
+cur = conn.cursor()
+cur.execute("SELECT * FROM states ORDER BY id ASC") # HERE I have to know SQL to grab all states in my database
+query_rows = cur.fetchall()
+for row in query_rows:
+    print(row)
+cur.close()
+conn.close()
+```
+
+With an ORM:
+
+```
+engine = create_engine('mysql+mysqldb://{}:{}@localhost/{}'.format("root", "root", "my_db"), pool_pre_ping=True)
+Base.metadata.create_all(engine)
+
+session = Session(engine)
+for state in session.query(State).order_by(State.id).all(): # HERE: no SQL query, only objects!
+    print("{}: {}".format(state.id, state.name))
+session.close()
+```
+
+Do you see the difference? Cool, right?
+
+The biggest difficulty with ORM is: The syntax!
+
+Indeed, all of them have the same type of syntax, but not always. Please read tutorials and don’t read the entire documentation before starting, just jump on it if you don’t get something.
 
 ## Topics
 
--  How to create an object in JavaScript
--  What this means
--  What undefined means
--  Why the variable type and scope is important
--  What is a closure
--  What is a prototype
--  How to inherit an object from another
+-  How to connect to a MySQL database from a Python script
+-  How to `SELECT` rows in a MySQL table from a Python script
+-  How to `INSERT` rows in a MySQL table from a Python script
+-  What ORM means
+-  How to map a Python Class to a MySQL table
 
 ## Requirements
 
--  Ubuntu 14.04 LTS
--  node (version 10.14.x)
--  semistandard compliant (version 14.x.x)
+-  Ubuntu 18.04.5 LTS
+-  MySQL 5.7
+-  Python 3.6.9
+-  PEP 8 style (version 1.7.\*)
 
-**Install Node 10**
+**Python packages**
+To get list of requirements to create virtual env please clic [here](requirements.txt)
+
+-  autopep8 1.5.6
+-  mysqlclient 1.3.10
+-  pkg-resources 0.0.0
+-  pycodestyle 2.7.0
+-  SQLAlchemy1.2.5
+-  toml0.10.2
+
+**Install MySQL 5.7 on Ubuntu 18.04.5 LTS**
 
 ```
-$ curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-$ sudo apt-get install -y nodejs
+$ echo 'deb http://repo.mysql.com/apt/ubuntu/ trusty mysql-5.7-dmr' | sudo tee -a /etc/apt/sources.list
+$ sudo apt-get update
+$ sudo apt-get install mysql-server-5.7
+...
+$ mysql --version
+mysql  Ver 14.14 Distrib 5.7.8-rc, for Linux (x86_64) using  EditLine wrapper
+$
 ```
 
-**Install semi-standard**
-[Documentation](https://github.com/standard/semistandard)
+**Install MySQLdb module version 1.3.x**
+For installing `MySQLdb`, you need to have `MySQL` installed
 
 ```
-$ sudo npm install semistandard --global
+$ sudo apt-get install python3-dev
+$ sudo apt-get install libmysqlclient-dev
+$ sudo apt-get install zlib1g-dev
+$ sudo pip3 install mysqlclient==1.3.10
+...
+$ python3
+>>> import MySQLdb
+>>> MySQLdb.__version__
+'1.3.10'
+```
+
+**Install SQLAlchemy module version 1.2.x**
+
+```
+$ sudo pip3 install SQLAlchemy==1.2.5
+...
+$ python3
+>>> import sqlalchemy
+>>> sqlalchemy.__version__
+'1.2.5'
 ```
 
 ## Read or watch
 
--  [JavaScript object basics](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Basics)
--  [Object-oriented JavaScript (read all examples!)](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object-oriented_JS)
--  [Class - ES6](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes)
--  [super - ES6](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/super)
--  [extends - ES6](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/extends)
--  [Object prototypes](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object_prototypes)
--  [Inheritance in JavaScript](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Inheritance)
--  [Closures](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures)
--  [this/self](https://alistapart.com/article/getoutbindingsituations/)
--  [Modern JS](https://github.com/mbeaudru/modern-js-cheatsheet)
+-  [Object-relational mappers](https://www.fullstackpython.com/object-relational-mappers-orms.html)
+-  [mysqlclient/MySQLdb documentation](https://mysqlclient.readthedocs.io/)
+-  [MySQLdb tutorial](https://www.mikusa.com/python-mysql-docs/index.html)
+-  [SQLAlchemy tutorial](https://docs.sqlalchemy.org/en/13/orm/tutorial.html)
+-  [SQLAlchemy](https://docs.sqlalchemy.org/en/13/)
+-  [mysqlclient/MySQLdb](https://github.com/PyMySQL/mysqlclient)
+-  [Introduction to SQLAlchemy](https://www.youtube.com/watch?v=woKYyhLCcnU)
+-  [Flask SQLAlchemy](https://www.youtube.com/playlist?list=PLXmMXHVSvS-BlLA5beNJojJLlpE0PJgCW)
+-  [10 common stumbling blocks for SQLAlchemy newbies](http://alextechrants.blogspot.com/2013/11/10-common-stumbling-blocks-for.html)
+-  [Python SQLAlchemy Cheatsheet](https://www.pythonsheets.com/notes/python-sqlalchemy.html)
+-  [SQLAlchemy ORM Tutorial for Python Developers](https://auth0.com/blog/sqlalchemy-orm-tutorial-for-python-developers/) (Warning: This tutorial is with PostgreSQL, but the concept of SQLAlchemy is the same with MySQL)
+-  [SQLAlchemy Tutorial](https://overiq.com/sqlalchemy-101/)
 
 ## File Descriptions
 
 This project is conceived to be carried out step by step, that is why the description of the files is presented as a statement.
 
-### 0. Rectangle #0
+### 0. Get all states
 
-**[0-rectangle.js](0-rectangle.js)**
+**[0-select_states.py](0-select_states.py)**
 
-Write an empty class `Rectangle` that defines a rectangle:
+Write a script that lists all `states` from the database `hbtn_0e_0_usa`:
 
--  You must use the `class` notation for defining your class
-
-```
-guillaume@ubuntu:~/0x13$ cat 0-main.js
-#!/usr/bin/node
-const Rectangle = require('./0-rectangle');
-
-const r1 = new Rectangle();
-console.log(r1);
-console.log(r1.constructor);
-
-guillaume@ubuntu:~/0x13$ ./0-main.js
-Rectangle {}
-[Function: Rectangle]
-guillaume@ubuntu:~/0x13$
-```
-
-### 1. Rectangle #1
-
-**[1-rectangle.js](1-rectangle.js)**
-
-Write a class `Rectangle` that defines a rectangle:
-
--  You must use the `class` notation for defining your class
--  The constructor must take 2 arguments `w` and `h`
--  Initialize the instance attribute `width` with the value of `w`
--  Initialize the instance attribute `height` with the value of `h`
+-  Your script should take 3 arguments: `mysql username`, `mysql password` and `database name` (no argument validation needed)
+-  You must use the module `MySQLdb` (import `MySQLdb`)
+-  Your script should connect to a MySQL server running on `localhost` at port `3306`
+-  Results must be sorted in ascending order by `states.id`
+-  Results must be displayed as they are in the example below
+-  Your code should not be executed when imported
 
 ```
-guillaume@ubuntu:~/0x13$ cat 1-main.js
-#!/usr/bin/node
-const Rectangle = require('./1-rectangle');
+guillaume@ubuntu:~/0x0F$ cat 0-select_states.sql
+-- Create states table in hbtn_0e_0_usa with some data
+CREATE DATABASE IF NOT EXISTS hbtn_0e_0_usa;
+USE hbtn_0e_0_usa;
+CREATE TABLE IF NOT EXISTS states (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(256) NOT NULL,
+    PRIMARY KEY (id)
+);
+INSERT INTO states (name) VALUES ("California"), ("Arizona"), ("Texas"), ("New York"), ("Nevada");
 
-const r1 = new Rectangle(2, 3);
-console.log(r1);
-console.log(r1.width);
-console.log(r1.height);
+guillaume@ubuntu:~/0x0F$ cat 0-select_states.sql | mysql -uroot -p
+Enter password:
+guillaume@ubuntu:~/0x0F$ ./0-select_states.py root root hbtn_0e_0_usa
+(1, 'California')
+(2, 'Arizona')
+(3, 'Texas')
+(4, 'New York')
+(5, 'Nevada')
+guillaume@ubuntu:~/0x0F$
+```
 
-const r2 = new Rectangle(2, -3);
-console.log(r2);
-console.log(r2.width);
-console.log(r2.height);
+### 1. Filter states
 
-const r3 = new Rectangle(2);
-console.log(r3);
-console.log(r3.width);
-console.log(r3.height);
+**[1-filter_states.py](1-filter_states.py)**
 
-guillaume@ubuntu:~/0x13$ ./1-main.js
-Rectangle { width: 2, height: 3 }
-2
+Write a script that lists all `states` with a `name` starting with `N` (upper N) from the database `hbtn_0e_0_usa`:
+
+-  Your script should take 3 arguments: `mysql username`, `mysql password` and `database name` (no argument validation needed)
+-  You must use the module `MySQLdb` (import `MySQLdb`)
+-  Your script should connect to a MySQL server running on `localhost` at port `3306`
+-  Results must be sorted in ascending order by `states.id`
+-  Results must be displayed as they are in the example below
+-  Your code should not be executed when imported
+
+```
+guillaume@ubuntu:~/0x0F$ cat 0-select_states.sql
+-- Create states table in hbtn_0e_0_usa with some data
+CREATE DATABASE IF NOT EXISTS hbtn_0e_0_usa;
+USE hbtn_0e_0_usa;
+CREATE TABLE IF NOT EXISTS states (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(256) NOT NULL,
+    PRIMARY KEY (id)
+);
+INSERT INTO states (name) VALUES ("California"), ("Arizona"), ("Texas"), ("New York"), ("Nevada");
+
+guillaume@ubuntu:~/0x0F$ cat 0-select_states.sql | mysql -uroot -p
+Enter password:
+guillaume@ubuntu:~/0x0F$ ./1-filter_states.py root root hbtn_0e_0_usa
+(4, 'New York')
+(5, 'Nevada')
+guillaume@ubuntu:~/0x0F$
+```
+
+### 2. Filter states by user input
+
+**[2-my_filter_states.py](2-my_filter_states.py)**
+
+Write a script that takes in an argument and displays all values in the `states` table of `hbtn_0e_0_usa` where `name` matches the argument.
+
+-  Your script should take 4 arguments: `mysql username`, `mysql password`, `database name` and `state name searched` (no argument validation needed)
+-  You must use the module `MySQLdb` (import `MySQLdb`)
+-  Your script should connect to a MySQL server running on `localhost` at port `3306`
+-  You must use `format` to create the SQL query with the user input
+-  Results must be sorted in ascending order by `states.id`
+-  Results must be displayed as they are in the example below
+-  Your code should not be executed when imported
+
+```
+guillaume@ubuntu:~/0x0F$ cat 0-select_states.sql
+-- Create states table in hbtn_0e_0_usa with some data
+CREATE DATABASE IF NOT EXISTS hbtn_0e_0_usa;
+USE hbtn_0e_0_usa;
+CREATE TABLE IF NOT EXISTS states (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(256) NOT NULL,
+    PRIMARY KEY (id)
+);
+INSERT INTO states (name) VALUES ("California"), ("Arizona"), ("Texas"), ("New York"), ("Nevada");
+
+guillaume@ubuntu:~/0x0F$ cat 0-select_states.sql | mysql -uroot -p
+Enter password:
+guillaume@ubuntu:~/0x0F$ ./2-my_filter_states.py root root hbtn_0e_0_usa 'Arizona'
+(2, 'Arizona')
+guillaume@ubuntu:~/0x0F$
+```
+
+### 3. SQL Injection...
+
+**[3-my_safe_filter_states.py](3-my_safe_filter_states.py)**
+
+Wait, do you remember the previous task? Did you test `"Arizona'; TRUNCATE TABLE states ; SELECT \* FROM states WHERE name = '"` as an input?
+
+```
+guillaume@ubuntu:~/0x0F$ ./2-my_filter_states.py root root hbtn_0e_0_usa "Arizona'; TRUNCATE TABLE states ; SELECT * FROM states WHERE name = '"
+(2, 'Arizona')
+guillaume@ubuntu:~/0x0F$ ./0-select_states.py root root hbtn_0e_0_usa
+guillaume@ubuntu:~/0x0F$
+```
+
+What? Empty?
+
+Yes, it’s an SQL injection to delete all records of a table…
+
+Once again, write a script that takes in arguments and displays all values in the `states` table of `hbtn_0e_0_usa` where `name` matches the argument. But this time, write one that is safe from MySQL injections!
+
+-  Your script should take 4 arguments: `mysql username`, `mysql password`, `database name` and `state name searched` (safe from MySQL injection)
+-  You must use the module `MySQLdb` (import `MySQLdb`)
+-  Your script should connect to a MySQL server running on `localhost` at port `3306`
+-  Results must be sorted in ascending order by `states.id`
+-  Results must be displayed as they are in the example below
+-  Your code should not be executed when imported
+
+```
+guillaume@ubuntu:~/0x0F$ cat 0-select_states.sql
+-- Create states table in hbtn_0e_0_usa with some data
+CREATE DATABASE IF NOT EXISTS hbtn_0e_0_usa;
+USE hbtn_0e_0_usa;
+CREATE TABLE IF NOT EXISTS states (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(256) NOT NULL,
+    PRIMARY KEY (id)
+);
+INSERT INTO states (name) VALUES ("California"), ("Arizona"), ("Texas"), ("New York"), ("Nevada");
+
+guillaume@ubuntu:~/0x0F$ cat 0-select_states.sql | mysql -uroot -p
+Enter password:
+guillaume@ubuntu:~/0x0F$ ./3-my_safe_filter_states.py root root hbtn_0e_0_usa 'Arizona'
+(2, 'Arizona')
+guillaume@ubuntu:~/0x0F$
+```
+
+### 4. Cities by states
+
+**[4-cities_by_state.py](4-cities_by_state.py)**
+
+Write a script that lists all `cities` from the database `hbtn_0e_4_usa`
+
+-  Your script should take 3 arguments: `mysql username`, `mysql password` and `database name`
+-  You must use the module `MySQLdb` (import `MySQLdb`)
+-  Your script should connect to a MySQL server running on `localhost` at port `3306`
+-  Results must be sorted in ascending order by `cities.id`
+-  You can use only `execute()` once
+-  Results must be displayed as they are in the example below
+-  Your code should not be executed when imported
+
+```
+guillaume@ubuntu:~/0x0F$ cat 4-cities_by_state.sql
+-- Create states table in hbtn_0e_4_usa with some data
+CREATE DATABASE IF NOT EXISTS hbtn_0e_4_usa;
+USE hbtn_0e_4_usa;
+CREATE TABLE IF NOT EXISTS states (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(256) NOT NULL,
+    PRIMARY KEY (id)
+);
+INSERT INTO states (name) VALUES ("California"), ("Arizona"), ("Texas"), ("New York"), ("Nevada");
+
+CREATE TABLE IF NOT EXISTS cities (
+    id INT NOT NULL AUTO_INCREMENT,
+    state_id INT NOT NULL,
+    name VARCHAR(256) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY(state_id) REFERENCES states(id)
+);
+INSERT INTO cities (state_id, name) VALUES (1, "San Francisco"), (1, "San Jose"), (1, "Los Angeles"), (1, "Fremont"), (1, "Livermore");
+INSERT INTO cities (state_id, name) VALUES (2, "Page"), (2, "Phoenix");
+INSERT INTO cities (state_id, name) VALUES (3, "Dallas"), (3, "Houston"), (3, "Austin");
+INSERT INTO cities (state_id, name) VALUES (4, "New York");
+INSERT INTO cities (state_id, name) VALUES (5, "Las Vegas"), (5, "Reno"), (5, "Henderson"), (5, "Carson City");
+
+guillaume@ubuntu:~/0x0F$ ./5-filter_cities.py root root hbtn_0e_4_usa Texas
+
+guillaume@ubuntu:~/0x0F$ cat 4-cities_by_state.sql | mysql -uroot -p
+Enter password:
+guillaume@ubuntu:~/0x0F$ ./5-filter_cities.py root root hbtn_0e_4_usa Texas
+Dallas, Houston, Austin
+guillaume@ubuntu:~/0x0F$ ./5-filter_cities.py root root hbtn_0e_4_usa Hawaii
+
+guillaume@ubuntu:~/0x0F$
+```
+
+### 5. All cities by state
+
+**[5-filter_cities.py](5-filter_cities.py)**
+
+Write a script that takes in the name of a state as an argument and lists all `cities` of that state, using the database `hbtn_0e_4_usa`
+
+-  Your script should take 3 arguments: `mysql username`, `mysql password`, `database name` and `state name` (SQL injection free!)
+-  You must use the module `MySQLdb` (import `MySQLdb`)
+-  Your script should connect to a MySQL server running on `localhost` at port `3306`
+-  Results must be sorted in ascending order by `cities.id`
+-  You can use only `execute()` once
+-  Results must be displayed as they are in the example below
+-  Your code should not be executed when imported
+
+```
+guillaume@ubuntu:~/0x0F$ cat 4-cities_by_state.sql
+-- Create states table in hbtn_0e_4_usa with some data
+CREATE DATABASE IF NOT EXISTS hbtn_0e_4_usa;
+USE hbtn_0e_4_usa;
+CREATE TABLE IF NOT EXISTS states (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(256) NOT NULL,
+    PRIMARY KEY (id)
+);
+INSERT INTO states (name) VALUES ("California"), ("Arizona"), ("Texas"), ("New York"), ("Nevada");
+
+CREATE TABLE IF NOT EXISTS cities (
+    id INT NOT NULL AUTO_INCREMENT,
+    state_id INT NOT NULL,
+    name VARCHAR(256) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY(state_id) REFERENCES states(id)
+);
+INSERT INTO cities (state_id, name) VALUES (1, "San Francisco"), (1, "San Jose"), (1, "Los Angeles"), (1, "Fremont"), (1, "Livermore");
+INSERT INTO cities (state_id, name) VALUES (2, "Page"), (2, "Phoenix");
+INSERT INTO cities (state_id, name) VALUES (3, "Dallas"), (3, "Houston"), (3, "Austin");
+INSERT INTO cities (state_id, name) VALUES (4, "New York");
+INSERT INTO cities (state_id, name) VALUES (5, "Las Vegas"), (5, "Reno"), (5, "Henderson"), (5, "Carson City");
+
+guillaume@ubuntu:~/0x0F$ ./5-filter_cities.py root root hbtn_0e_4_usa Texas
+
+guillaume@ubuntu:~/0x0F$ cat 4-cities_by_state.sql | mysql -uroot -p
+Enter password:
+guillaume@ubuntu:~/0x0F$ ./5-filter_cities.py root root hbtn_0e_4_usa Texas
+Dallas, Houston, Austin
+guillaume@ubuntu:~/0x0F$ ./5-filter_cities.py root root hbtn_0e_4_usa Hawaii
+
+guillaume@ubuntu:~/0x0F$
+```
+
+### 6. First state model
+
+**[model_state.py](model_state.py)**
+
+Write a python file that contains the class definition of a `State` and an instance `Base = declarative_base()`:
+
+-  `State` class:
+   -  inherits from `Base` Tips
+   -  links to the MySQL table `states`
+   -  class attribute `id` that represents a column of an auto-generated, unique integer, can’t be null and is a primary key
+   -  class attribute `name` that represents a column of a string with maximum 128 characters and can’t be null
+-  You must use the module `SQLAlchemy`
+-  Your script should connect to a MySQL server running on `localhost` at port `3306`
+-  **WARNING:** all classes who inherit from `Base` must be imported before calling `Base.metadata.create_all(engine)`
+
+```
+guillaume@ubuntu:~/0x0F$ cat 6-model_state.sql
+-- Create database hbtn_0e_6_usa
+CREATE DATABASE IF NOT EXISTS hbtn_0e_6_usa;
+USE hbtn_0e_6_usa;
+SHOW CREATE TABLE states;
+
+guillaume@ubuntu:~/0x0F$ cat 6-model_state.sql | mysql -uroot -p
+Enter password:
+ERROR 1146 (42S02) at line 4: Table 'hbtn_0e_6_usa.states' doesn't exist
+guillaume@ubuntu:~/0x0F$ cat 6-model_state.py
+#!/usr/bin/python3
+"""Start link class to table in database
+"""
+import sys
+from model_state import Base, State
+
+from sqlalchemy import (create_engine)
+
+if __name__ == "__main__":
+    engine = create_engine('mysql+mysqldb://{}:{}@localhost/{}'.format(sys.argv[1], sys.argv[2], sys.argv[3]), pool_pre_ping=True)
+    Base.metadata.create_all(engine)
+
+guillaume@ubuntu:~/0x0F$ ./6-model_state.py root root hbtn_0e_6_usa
+guillaume@ubuntu:~/0x0F$ cat 6-model_state.sql | mysql -uroot -p
+Enter password:
+Table   Create Table
+states  CREATE TABLE `states` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `name` varchar(128) NOT NULL,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=latin1
+guillaume@ubuntu:~/0x0F$
+```
+
+### 7. All states via SQLAlchemy
+
+**[7-model_state_fetch_all.py](7-model_state_fetch_all.py)**
+
+Write a script that lists all `State` objects from the database `hbtn_0e_6_usa`
+
+-  Your script should take 3 arguments: `mysql username`, `mysql password` and `database name`
+-  You must use the module `SQLAlchemy`
+-  You must import `State` and `Base` from `model_state - from model_state import Base, State`
+-  Your script should connect to a MySQL server running on `localhost` at port `3306`
+-  Results must be sorted in ascending order by `states.id`
+-  The results must be displayed as they are in the example below
+-  Your code should not be executed when imported
+
+```
+guillaume@ubuntu:~/0x0F$ cat 7-model_state_fetch_all.sql
+-- Insert states
+INSERT INTO states (name) VALUES ("California"), ("Arizona"), ("Texas"), ("New York"), ("Nevada");
+
+guillaume@ubuntu:~/0x0F$ cat 7-model_state_fetch_all.sql | mysql -uroot -p hbtn_0e_6_usa
+Enter password:
+guillaume@ubuntu:~/0x0F$ ./7-model_state_fetch_all.py root root hbtn_0e_6_usa
+1: California
+2: Arizona
+3: Texas
+4: New York
+5: Nevada
+guillaume@ubuntu:~/0x0F$
+```
+
+### 8. First state
+
+**[7-model_state_fetch_all.py](7-model_state_fetch_all.py)**
+
+Write a script that prints the first `State` object from the database `hbtn_0e_6_usa`
+
+-  Your script should take 3 arguments: `mysql username`, `mysql password` and `database name`
+-  You must use the module `SQLAlchemy`
+-  You must import `State` and `Base` from `model_state - from model_state import Base, State`
+-  Your script should connect to a MySQL server running on `localhost` at port `3306`
+-  Results must be sorted in ascending order by `states.id`
+-  You are not allowed to fetch all states from the database before displaying the result
+-  The results must be displayed as they are in the example below
+-  If the table `states` is empty, print `Nothing` followed by a new line
+-  Your code should not be executed when imported
+
+```
+guillaume@ubuntu:~/0x0F$ ./8-model_state_fetch_first.py root root hbtn_0e_6_usa
+1: California
+guillaume@ubuntu:~/0x0F$
+```
+
+### 9. Contains `a`
+
+**[9-model_state_filter_a.py](9-model_state_filter_a.py)**
+
+Write a script that lists all `State` objects that contain the letter `a` from the database `hbtn_0e_6_usa`
+
+-  Your script should take 3 arguments: `mysql username`, `mysql password` and `database name`
+-  You must use the module `SQLAlchemy`
+-  You must import `State` and `Base` from `model_state - from model_state import Base, State`
+-  Your script should connect to a MySQL server running on `localhost` at port `3306`
+-  Results must be sorted in ascending order by `states.id`
+-  The results must be displayed as they are in the example below
+-  Your code should not be executed when imported
+
+```
+guillaume@ubuntu:~/0x0F$ ./9-model_state_filter_a.py root root hbtn_0e_6_usa
+1: California
+2: Arizona
+3: Texas
+5: Nevada
+guillaume@ubuntu:~/0x0F$
+```
+
+### 10. Get a state
+
+**[10-model_state_my_get.py](10-model_state_my_get.py)**
+
+Write a script that prints the `State` object with the [name] passed as argument from the database `hbtn_0e_6_usa`
+
+-  Your script should take 4 arguments: `mysql username`, `mysql password`, `database name` and `state name to search` (SQL injection free)
+-  You must use the module `SQLAlchemy`
+-  You must import `State` and `Base` from `model_state - from model_state import Base, State`
+-  Your script should connect to a MySQL server running on `localhost` at port `3306`
+-  You can assume you have one record with the state name to search
+-  Results must be sorted in ascending order by `states.id`
+-  TIf no state has the name you searched for, display `Not found`
+-  Your code should not be executed when imported
+
+```
+guillaume@ubuntu:~/0x0F$ ./10-model_state_my_get.py root root hbtn_0e_6_usa Texas
 3
-Rectangle { width: 2, height: -3 }
-2
--3
-Rectangle { width: 2, height: undefined }
-2
-undefined
-guillaume@ubuntu:~/0x13$
+guillaume@ubuntu:~/0x0F$ ./10-model_state_my_get.py root root hbtn_0e_6_usa Illinois
+Not found
+guillaume@ubuntu:~/0x0F$
 ```
 
-### 2. Rectangle #2
+### 11. Add a new state
 
-**[2-rectangle.js](2-rectangle.js)**
+**[11-model_state_insert.py](11-model_state_insert.py)**
 
-Write a class `Rectangle` that defines a rectangle:
+Write a script that adds the `State` object “Louisiana” to the database `hbtn_0e_6_usa`
 
--  You must use the `class` notation for defining your class
--  The constructor must take 2 arguments `w` and `h`
--  Initialize the instance attribute `width` with the value of `w`
--  Initialize the instance attribute `height` with the value of `h`
--  If `w` or `h` is equal to 0 or not a positive integer, create an empty object
-
-```
-guillaume@ubuntu:~/0x13$ cat 2-main.js
-#!/usr/bin/node
-const Rectangle = require('./2-rectangle');
-
-const r1 = new Rectangle(2, 3);
-console.log(r1);
-console.log(r1.width);
-console.log(r1.height);
-
-const r2 = new Rectangle(2, -3);
-console.log(r2);
-console.log(r2.width);
-console.log(r2.height);
-
-const r3 = new Rectangle(2);
-console.log(r3);
-console.log(r3.width);
-console.log(r3.height);
-
-const r4 = new Rectangle(2, 0);
-console.log(r4);
-console.log(r4.width);
-console.log(r4.height);
-
-guillaume@ubuntu:~/0x13$ ./2-main.js
-Rectangle { width: 2, height: 3 }
-2
-3
-Rectangle {}
-undefined
-undefined
-Rectangle {}
-undefined
-undefined
-Rectangle {}
-undefined
-undefined
-guillaume@ubuntu:~/0x13$
-```
-
-### 3. Rectangle #3
-
-**[3-rectangle.js](3-rectangle.js)**
-
-Write a class `Rectangle` that defines a rectangle:
-
--  You must use the `class` notation for defining your class
--  The constructor must take 2 arguments `w` and `h`
--  Initialize the instance attribute `width` with the value of `w`
--  Initialize the instance attribute `height` with the value of `h`
--  If `w` or `h` is equal to 0 or not a positive integer, create an empty object
--  Create an instance method called `print()` that prints the rectangle using the character `X`
+-  Your script should take 3 arguments: `mysql username`, `mysql password` and `database name`
+-  You must use the module `SQLAlchemy`
+-  You must import `State` and `Base` from `model_state - from model_state import Base, State`
+-  Your script should connect to a MySQL server running on `localhost` at port `3306`
+-  Print the new states.id after creation
+-  Your code should not be executed when imported
 
 ```
-guillaume@ubuntu:~/0x13$ cat 3-main.js
-#!/usr/bin/node
-const Rectangle = require('./3-rectangle');
-
-const r1 = new Rectangle(2, 3);
-r1.print();
-
-const r2 = new Rectangle(10, 5);
-r2.print();
-
-guillaume@ubuntu:~/0x13$ ./3-main.js
-XX
-XX
-XX
-XXXXXXXXXX
-XXXXXXXXXX
-XXXXXXXXXX
-XXXXXXXXXX
-XXXXXXXXXX
-guillaume@ubuntu:~/0x13$
+guillaume@ubuntu:~/0x0F$ ./11-model_state_insert.py root root hbtn_0e_6_usa
+6
+guillaume@ubuntu:~/0x0F$ ./7-model_state_fetch_all.py root root hbtn_0e_6_usa
+1: California
+2: Arizona
+3: Texas
+4: New York
+5: Nevada
+6: Louisiana
+guillaume@ubuntu:~/0x0F$
 ```
 
-### 4. Rectangle #4
+### 12. Update a state
 
-**[4-rectangle.js](4-rectangle.js)**
+**[12-model_state_update_id_2.py](12-model_state_update_id_2.py)**
 
-Write a class `Rectangle` that defines a rectangle:
+Write a script that changes the name of a `State` object from the database `hbtn_0e_6_usa`
 
--  You must use the `class` notation for defining your class
--  The constructor must take 2 arguments `w` and `h`
--  Initialize the instance attribute `width` with the value of `w`
--  Initialize the instance attribute `height` with the value of `h`
--  If `w` or `h` is equal to 0 or not a positive integer, create an empty object
--  Create an instance method called `print()` that prints the rectangle using the character `X`
--  Create an instance method called `rotate()` that exchanges the `width` and the `height` of the rectangle
--  Create an instance method called `double()` that multiples the `width` and the `height` of the rectangle by 2
+-  Your script should take 3 arguments: `mysql username`, `mysql password` and `database name`
+-  You must use the module `SQLAlchemy`
+-  You must import `State` and `Base` from `model_state - from model_state import Base, State`
+-  Your script should connect to a MySQL server running on `localhost` at port `3306`
+-  Change the name of the `State` where `id = 2` to `New Mexico`
+-  Your code should not be executed when imported
 
 ```
-guillaume@ubuntu:~/0x13$ cat 4-main.js
-#!/usr/bin/node
-const Rectangle = require('./4-rectangle');
-
-const r1 = new Rectangle(2, 3);
-console.log('Normal:');
-r1.print();
-
-console.log('Double:');
-r1.double();
-r1.print();
-
-console.log('Rotate:');
-r1.rotate();
-r1.print();
-
-guillaume@ubuntu:~/0x13$ ./4-main.js
-Normal:
-XX
-XX
-XX
-Double:
-XXXX
-XXXX
-XXXX
-XXXX
-XXXX
-XXXX
-Rotate:
-XXXXXX
-XXXXXX
-XXXXXX
-XXXXXX
-guillaume@ubuntu:~/0x13$
+guillaume@ubuntu:~/0x0F$ ./12-model_state_update_id_2.py root root hbtn_0e_6_usa
+guillaume@ubuntu:~/0x0F$ ./7-model_state_fetch_all.py root root hbtn_0e_6_usa
+1: California
+2: New Mexico
+3: Texas
+4: New York
+5: Nevada
+6: Louisiana
+guillaume@ubuntu:~/0x0F$
 ```
 
-### 5. Square #0
+### 13. Delete states
 
-**[5-square.js](5-square.js)**
+**[13-model_state_delete_a.py](13-model_state_delete_a.py)**
 
-Write a class `Square` that defines a square and inherits from `Rectangle` of `4-rectangle.js`:
+Write a script that deletes all `State` objects with `a` name containing the letter a from the database `hbtn_0e_6_usa`
 
--  You must use the `class` notation for defining your class and `extends`
--  The constructor must take 1 argument: `size`
--  The constructor of `Rectangle` must be called (by using `super()`)
-
-```
-guillaume@ubuntu:~/0x13$ cat 5-main.js
-#!/usr/bin/node
-const Square = require('./5-square');
-
-const s1 = new Square(4);
-s1.print();
-s1.double();
-s1.print();
-
-guillaume@ubuntu:~/0x13$ ./5-main.js
-XXXX
-XXXX
-XXXX
-XXXX
-XXXXXXXX
-XXXXXXXX
-XXXXXXXX
-XXXXXXXX
-XXXXXXXX
-XXXXXXXX
-XXXXXXXX
-XXXXXXXX
-guillaume@ubuntu:~/0x13$
-```
-
-### 6. Square #1
-
-**[6-square.js](6-square.js)**
-
-Write a class `Square` that defines a square and inherits from `Square` of `5-square.js`:
-
--  You must use the `class` notation for defining your class and `extends`
--  Create an instance method called `charPrint(c)` that prints the rectangle using the character `c`
-   -  If `c` is `undefined`, use the character `X`
+-  Your script should take 3 arguments: `mysql username`, `mysql password` and `database name`
+-  You must use the module `SQLAlchemy`
+-  You must import `State` and `Base` from `model_state - from model_state import Base, State`
+-  Your script should connect to a MySQL server running on `localhost` at port `3306`
+-  Your code should not be executed when imported
 
 ```
-guillaume@ubuntu:~/0x13$ cat 6-main.js
-#!/usr/bin/node
-const Square = require('./6-square');
-
-const s1 = new Square(4);
-s1.charPrint();
-
-s1.charPrint('C');
-
-guillaume@ubuntu:~/0x13$ ./6-main.js
-XXXX
-XXXX
-XXXX
-XXXX
-CCCC
-CCCC
-CCCC
-CCCC
-guillaume@ubuntu:~/0x13$
+guillaume@ubuntu:~/0x0F$ ./13-model_state_delete_a.py root root hbtn_0e_6_usa
+guillaume@ubuntu:~/0x0F$ ./7-model_state_fetch_all.py root root hbtn_0e_6_usa
+2: New Mexico
+4: New York
+guillaume@ubuntu:~/0x0F$
 ```
 
-### 7. Occurrences
+### 14. Cities in state
 
-**[7-occurrences.js](7-occurrences.js)**
+**[model_city.py](model_city.py)**  
+**[14-model_city_fetch_by_state.py](14-model_city_fetch_by_state.py)**
 
-Write a function that returns the number of occurrences in a list:
+Write a Python file similar to `model_state.py` named `model_city.py` that contains the class definition of a `City`.
 
--  Prototype: `exports.nbOccurences = function (list, searchElement)`
+-  `City` class:
+   -  inherits from `Base` (imported from `model_state`)
+   -  links to the MySQL table `cities`
+   -  class attribute `id` that represents a column of an auto-generated, unique integer, can’t be null and is a primary key
+   -  class attribute `name` that represents a column of a string of 128 characters and can’t be null
+   -  class attribute `state_id` that represents a column of an integer, can’t be null and is a foreign key to `states.id`
+-  You must use the module `SQLAlchemy`
 
-```
-guillaume@ubuntu:~/0x13$ cat 7-main.js
-#!/usr/bin/node
-const nbOccurences = require('./7-occurrences').nbOccurences;
+Next, write a script `14-model_city_fetch_by_state.py` that prints all `City` objects from the database `hbtn_0e_14_usa`:
 
-console.log(nbOccurences([1, 2, 3, 4, 5, 6], 3));
-console.log(nbOccurences([3, 2, 3, 4, 5, 3, 3], 3));
-console.log(nbOccurences(["H", 12, "c", "H", "Holberton", 8], "H"));
-
-guillaume@ubuntu:~/0x13$ ./7-main.js
-1
-4
-2
-guillaume@ubuntu:~/0x13$
-```
-
-### 8. Esrever
-
-**[8-esrever.js](8-esrever.js)**
-
-Write a function that returns the reversed version of a list:
-
--  Prototype: `exports.esrever = function (list)`
--  You are not allow to use the built-in method `reverse`
+-  Your script should take 3 arguments: `mysql username`, `mysql password` and `database name`
+-  You must use the module `SQLAlchemy`
+-  You must import `State` and `Base` from `model_state - from model_state import Base, State`
+-  Your script should connect to a MySQL server running on `localhost` at port `3306`
+-  Results must be sorted in ascending order by `cities.id`
+-  Results must be display as they are in the example below (`<state name>: (<city id>) <city name>`)
+-  Your code should not be executed when imported
 
 ```
-guillaume@ubuntu:~/0x13$ cat 8-main.js
-#!/usr/bin/node
-const esrever = require('./8-esrever').esrever;
+guillaume@ubuntu:~/0x0F$ cat 14-model_city_fetch_by_state.sql
+-- Create database hbtn_0e_14_usa, tables states and cities + some data
+CREATE DATABASE IF NOT EXISTS hbtn_0e_14_usa;
+USE hbtn_0e_14_usa;
 
-console.log(esrever([1, 2, 3, 4, 5]));
-console.log(esrever(["Holberton", 89, { id: 12 }, "String"]));
+CREATE TABLE IF NOT EXISTS states (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(256) NOT NULL,
+    PRIMARY KEY (id)
+);
+INSERT INTO states (name) VALUES ("California"), ("Arizona"), ("Texas"), ("New York"), ("Nevada");
 
-guillaume@ubuntu:~/0x13$ ./8-main.js
-[ 5, 4, 3, 2, 1 ]
-[ 'String', { id: 12 }, 89, 'Holberton' ]
-guillaume@ubuntu:~/0x13$
+CREATE TABLE IF NOT EXISTS cities (
+    id INT NOT NULL AUTO_INCREMENT,
+    state_id INT NOT NULL,
+    name VARCHAR(256) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY(state_id) REFERENCES states(id)
+);
+INSERT INTO cities (state_id, name) VALUES (1, "San Francisco"), (1, "San Jose"), (1, "Los Angeles"), (1, "Fremont"), (1, "Livermore");
+INSERT INTO cities (state_id, name) VALUES (2, "Page"), (2, "Phoenix");
+INSERT INTO cities (state_id, name) VALUES (3, "Dallas"), (3, "Houston"), (3, "Austin");
+INSERT INTO cities (state_id, name) VALUES (4, "New York");
+INSERT INTO cities (state_id, name) VALUES (5, "Las Vegas"), (5, "Reno"), (5, "Henderson"), (5, "Carson City");
+
+guillaume@ubuntu:~/0x0F$ cat 14-model_city_fetch_by_state.sql | mysql -uroot -p
+Enter password:
+guillaume@ubuntu:~/0x0F$ ./14-model_city_fetch_by_state.py root root hbtn_0e_14_usa
+California: (1) San Francisco
+California: (2) San Jose
+California: (3) Los Angeles
+California: (4) Fremont
+California: (5) Livermore
+Arizona: (6) Page
+Arizona: (7) Phoenix
+Texas: (8) Dallas
+Texas: (9) Houston
+Texas: (10) Austin
+New York: (11) New York
+Nevada: (12) Las Vegas
+Nevada: (13) Reno
+Nevada: (14) Henderson
+Nevada: (15) Carson City
+guillaume@ubuntu:~/0x0F$
 ```
 
-### 9. Log me
+### 15. City relationship
 
-**[9-logme.js](9-logme.js)**
+**[relationship_city.py](relationship_city.py)**  
+**[relationship_state.py](relationship_state.py)**  
+**[relationship_state.py](100-relationship_states_cities.py)**
 
-Write a function that prints the number of arguments already printed and the new argument value. (see example below)
+Improve the files `model_city.py` and `model_state.py`, and save them as `relationship_city.py` and `relationship_state.py`:
 
--  Prototype: `exports.logMe = function (item)`
--  Output format: `<number arguments already printed>: <current argument value>`
+-  `City` class:
+   -  No change
+-  `State` class:
+   -  In addition to previous requirements, the class attribute `cities` must represent a relationship with the class `City`. If the `State` object is deleted, all linked `City` objects must be automatically deleted. Also, the reference from a `City` object to his `State` should be named `state`
+-  You must use the module `SQLAlchemy`
 
-```
-guillaume@ubuntu:~/0x13$ cat 9-main.js
-#!/usr/bin/node
-const logMe = require('./9-logme').logMe;
+Write a script that creates the `State` “California” with the `City` “San Francisco” from the database `hbtn_0e_100_usa`: (`100-relationship_states_cities.py`)
 
-logMe("Hello");
-logMe("Holberton");
-logMe("School");
-
-guillaume@ubuntu:~/0x13$ ./9-main.js
-0: Hello
-1: Holberton
-2: School
-guillaume@ubuntu:~/0x13$
-```
-
-### 9. Log me
-
-**[9-logme.js](9-logme.js)**
-
-Write a function that prints the number of arguments already printed and the new argument value. (see example below)
-
--  Prototype: `exports.logMe = function (item)`
--  Output format: `<number arguments already printed>: <current argument value>`
+-  Your script should take 3 arguments: `mysql username`, `mysql password` and `database name`
+-  You must use the module `SQLAlchemy`
+-  Your script should connect to a MySQL server running on `localhost` at port `3306`
+-  You must use the `cities` relationship for all `State` objects
+-  Your code should not be executed when imported
 
 ```
-guillaume@ubuntu:~/0x13$ cat 9-main.js
-#!/usr/bin/node
-const logMe = require('./9-logme').logMe;
+guillaume@ubuntu:~/0x0F$ cat 100-relationship_states_cities.sql
+-- Create the database hbtn_0e_100_usa
+CREATE DATABASE IF NOT EXISTS hbtn_0e_100_usa;
+USE hbtn_0e_100_usa;
 
-logMe("Hello");
-logMe("Holberton");
-logMe("School");
+SELECT * FROM states;
+SELECT * FROM cities;
 
-guillaume@ubuntu:~/0x13$ ./9-main.js
-0: Hello
-1: Holberton
-2: School
-guillaume@ubuntu:~/0x13$
+guillaume@ubuntu:~/0x0F$ cat 100-relationship_states_cities.sql | mysql -uroot -p
+Enter password:
+ERROR 1146 (42S02) at line 5: Table 'hbtn_0e_100_usa.states' doesn't exist
+guillaume@ubuntu:~/0x0F$ ./100-relationship_states_cities.py root root hbtn_0e_100_usa
+guillaume@ubuntu:~/0x0F$ cat 100-relationship_states_cities.sql | mysql -uroot -p
+Enter password:
+id  name
+1   California
+id  name    state_id
+1   San Francisco   1
+guillaume@ubuntu:~/0x0F$
 ```
 
-### 10. Number conversion
+### 16. List relationship
 
-**[10-converter.js](10-converter.js)**
+**[101-relationship_states_cities_list.py](101-relationship_states_cities_list.py)**
 
-Write a function that converts a number from base 10 to another base passed as argument:
+Write a script that lists all `State` objects, and corresponding `City` objects, contained in the database `hbtn_0e_101_usa`
 
--  Prototype: `exports.converter = function (base)`
--  You are not allowed to import any file
--  You are not allowed to declare any new variable (`var`, `let`, etc..)
-
-```
-guillaume@ubuntu:~/0x13$ cat 10-main.js
-#!/usr/bin/node
-const converter = require('./10-converter').converter;
-
-let myConverter = converter(10);
-
-console.log(myConverter(2));
-console.log(myConverter(12));
-console.log(myConverter(89));
-
-
-myConverter = converter(16);
-
-console.log(myConverter(2));
-console.log(myConverter(12));
-console.log(myConverter(89));
-
-guillaume@ubuntu:~/0x13$ ./10-main.js
-2
-12
-89
-2
-c
-59
-guillaume@ubuntu:~/0x13$
-```
-
-### 11. Factor index
-
-**[100-map.js](100-map.js)**
-
-Write a script that imports an array and computes a new array.
-
--  Your script must import `list` from the file `100-data.js`
--  You must use a `map`. [Tips](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map?v=control)
--  A new list must be created with each value equal to the value of the initial list, multipled by the index in the list
--  Print both the initial list and the new list
+-  Your script should take 3 arguments: `mysql username`, `mysql password` and `database name`
+-  You must use the module `SQLAlchemy`
+-  Your script should connect to a MySQL server running on `localhost` at port `3306`
+-  You must only use one query to the database
+-  You must use the `cities` relationship for all `State` objects
+-  Results must be sorted in ascending order by `states.id` and `cities.id`
+-  Results must be displayed as they are in the example below
+-  Your code should not be executed when imported
 
 ```
-guillaume@ubuntu:~/0x13$ cat 100-data.js
-#!/usr/bin/node
-exports.list = [1, 2, 3, 4, 5];
-guillaume@ubuntu:~/0x13$ ./100-map.js
-[ 1, 2, 3, 4, 5 ]
-[ 0, 2, 6, 12, 20 ]
-guillaume@ubuntu:~/0x13$
+<state id>: <state name>
+<tabulation><city id>: <city name>
 ```
 
-### 12. Sorted occurences
+```
+guillaume@ubuntu:~/0x0F$ cat 101-relationship_states_cities_list.sql
+-- Create states table in hbtn_0e_101_usa with some data
+CREATE DATABASE IF NOT EXISTS hbtn_0e_101_usa;
+USE hbtn_0e_101_usa;
+CREATE TABLE IF NOT EXISTS states (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(256) NOT NULL,
+    PRIMARY KEY (id)
+);
+INSERT INTO states (name) VALUES ("California"), ("Arizona"), ("Texas"), ("New York"), ("Nevada");
 
-**[101-sorted.js](101-sorted.js)**
+CREATE TABLE IF NOT EXISTS cities (
+    id INT NOT NULL AUTO_INCREMENT,
+    state_id INT NOT NULL,
+    name VARCHAR(256) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY(state_id) REFERENCES states(id)
+);
+INSERT INTO cities (state_id, name) VALUES (1, "San Francisco"), (1, "San Jose"), (1, "Los Angeles"), (1, "Fremont"), (1, "Livermore");
+INSERT INTO cities (state_id, name) VALUES (2, "Page"), (2, "Phoenix");
+INSERT INTO cities (state_id, name) VALUES (3, "Dallas"), (3, "Houston"), (3, "Austin");
+INSERT INTO cities (state_id, name) VALUES (4, "New York");
+INSERT INTO cities (state_id, name) VALUES (5, "Las Vegas"), (5, "Reno"), (5, "Henderson"), (5, "Carson City");
 
-Write a script that imports a dictionary of occurrences by user id and computes a dictionary of user ids by occurrence.
+guillaume@ubuntu:~/0x0F$ cat 101-relationship_states_cities_list.sql | mysql -uroot -p
+guillaume@ubuntu:~/0x0F$ ./101-relationship_states_cities_list.py root root hbtn_0e_101_usa
+1: California
+    1: San Francisco
+    2: San Jose
+    3: Los Angeles
+    4: Fremont
+    5: Livermore
+2: Arizona
+    6: Page
+    7: Phoenix
+3: Texas
+    8: Dallas
+    9: Houston
+    10: Austin
+4: New York
+    11: New York
+5: Nevada
+    12: Las Vegas
+    13: Reno
+    14: Henderson
+    15: Carson City
+guillaume@ubuntu:~/0x0F$
+```
 
--  Your script must import `dict` from the file `101-data.js`
--  In the new dictionary:
-   -  A key is a number of occurrences
-   -  A value is the list of user ids
--  Print the new dictionary at the end
+### 17. From city
+
+**[102-relationship_cities_states_list.py](102-relationship_cities_states_list.py)**
+
+Write a script that lists all `City` objects from the database `hbtn_0e_101_usa`
+
+-  Your script should take 3 arguments: `mysql username`, `mysql password` and `database name`
+-  You must use the module `SQLAlchemy`
+-  Your script should connect to a MySQL server running on `localhost` at port `3306`
+-  You must only use one query to the database
+-  You must use the `state` relationship to access to the `State` object linked to the `City` object
+-  Results must be sorted in ascending order by `cities.id`
+-  Results must be displayed as they are in the example below
+-  Your code should not be executed when imported
 
 ```
-guillaume@ubuntu:~/0x13$ cat 101-data.js
-#!/usr/bin/node
-exports.dict = {
-  89: 1,
-  90: 2,
-  91: 1,
-  92: 3,
-  93: 1,
-  94: 2
-};
-guillaume@ubuntu:~/0x13$ ./101-sorted.js
-{ '1': [ '89', '91', '93' ], '2': [ '90', '94' ], '3': [ '92' ] }
-guillaume@ubuntu:~/0x13$
+<city id>: <city name> -> <state name>
 ```
 
-### 13. Concat files
-
-**[102-concat.js](102-concat.js)**
-
-Write a script that concats 2 files.
-
--  The first argument is the file path of the first source file
--  The second argument is the file path of the second source file
--  The third argument is the file path of the destination
-
 ```
-guillaume@ubuntu:~/0x13$ cat fileA
-C is fun!
-guillaume@ubuntu:~/0x13$ cat fileB
-Python is Cool!!!
-guillaume@ubuntu:~/0x13$ ./102-concat.js fileA fileB fileC
-guillaume@ubuntu:~/0x13$ cat fileC
-C is fun!
-Python is Cool!!!
-guillaume@ubuntu:~/0x13$
+guillaume@ubuntu:~/0x0F$ ./102-relationship_cities_states_list.py root root hbtn_0e_101_usa
+1: San Francisco -> California
+2: San Jose -> California
+3: Los Angeles -> California
+4: Fremont -> California
+5: Livermore -> California
+6: Page -> Arizona
+7: Phoenix -> Arizona
+8: Dallas -> Texas
+9: Houston -> Texas
+10: Austin -> Texas
+11: New York -> New York
+12: Las Vegas -> Nevada
+13: Reno -> Nevada
+14: Henderson -> Nevada
+15: Carson City -> Nevada
+guillaume@ubuntu:~/0x0F$
 ```
