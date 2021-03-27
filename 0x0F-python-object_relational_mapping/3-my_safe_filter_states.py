@@ -18,7 +18,7 @@ def main():
     # Get arguments from command line
     route, username, password, database, lookup = sys.argv
     # Compose query
-    query = "SELECT * FROM states WHERE name = %s ORDER BY states.id ASC"
+    query = "SELECT * FROM states WHERE name LIKE %s ORDER BY states.id ASC"
     # Connect to DB
     db = MySQLdb.connect(user=username, passwd=password, db=database)
     # Create cursor to execute queries and use with to close connections

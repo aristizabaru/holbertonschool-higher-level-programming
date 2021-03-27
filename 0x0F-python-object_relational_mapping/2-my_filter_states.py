@@ -22,7 +22,7 @@ def main():
     with db.cursor() as cur:
         cur.execute("""
         SELECT * FROM states
-        WHERE name = '{}'
+        WHERE name LIKE '{}'
         ORDER BY states.id ASC
         """.format(lookup))
         # Display data
