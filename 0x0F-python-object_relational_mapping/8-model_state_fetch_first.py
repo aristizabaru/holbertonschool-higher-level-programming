@@ -28,7 +28,7 @@ def main():
     session = Session()
 
     # Query
-    records = session.query(State).first()
+    records = session.query(State).order_by(State.id).first()
 
     # Show data
     print("{}: {}".format(records.id, records.name))
