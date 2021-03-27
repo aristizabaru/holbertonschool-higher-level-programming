@@ -4,8 +4,7 @@
 
 This is an educational project to explore several conceptos about Python and how to connect it using DBAPI-249 and ORM.
 
-**Background Context**
-
+**Background Context**  
 In this project, you will link two amazing worlds: Databases and Python!
 
 In the first part, you will use the module `MySQLdb` to connect to a MySQL database and execute your SQL queries.
@@ -60,8 +59,8 @@ Indeed, all of them have the same type of syntax, but not always. Please read tu
 -  Python 3.6.9
 -  PEP 8 style (version 1.7.\*)
 
-**Python packages**
-To get list of requirements to create virtual env please clic [here](requirements.txt)
+**Python packages**  
+To get list of requirements to create virtual env please click [here](requirements.txt)
 
 -  autopep8 1.5.6
 -  mysqlclient 1.3.10
