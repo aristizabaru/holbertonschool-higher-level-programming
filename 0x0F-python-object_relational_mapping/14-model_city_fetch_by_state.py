@@ -36,7 +36,7 @@ def main():
     # print results
     for state_record, city_record in records:
         print("{}: ({}) {}".format(
-            state_record.name, city_record.state_id, city_record.name))
+            state_record.name, city_record.id, city_record.name))
 
     session.close()
 
