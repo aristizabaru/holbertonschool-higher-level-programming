@@ -66,8 +66,8 @@ To get list of requirements to create virtual env please click [here](requiremen
 -  mysqlclient 1.3.10
 -  pkg-resources 0.0.0
 -  pycodestyle 2.7.0
--  SQLAlchemy1.2.5
--  toml0.10.2
+-  SQLAlchemy 1.2.5
+-  toml 0.10.2
 
 **Install MySQL 5.7 on Ubuntu 18.04.5 LTS**
 
