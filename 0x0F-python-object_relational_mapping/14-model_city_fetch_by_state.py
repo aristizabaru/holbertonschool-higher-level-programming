@@ -31,7 +31,7 @@ def main():
 
     # Query
     records = session.query(State, City).filter(
-        State.id == City.state_id).order_by(City.id)
+        State.id == City.state_id).order_by(City.id).all()
 
     # print results
     for state_record, city_record in records:
