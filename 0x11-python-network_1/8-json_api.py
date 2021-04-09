@@ -1,4 +1,4 @@
-# #!/usr/bin/python3
+#!/usr/bin/python3
 """0-hbtn_status module"""
 import requests
 import sys
@@ -13,16 +13,16 @@ def main(req, data):
             print("No result")
         else:
             print("[{}] {}".format(json_data['id'], json_data['name']))
-    except:
-            print("Not a valid JSON")
-            
+    except Exception:
+        print("Not a valid JSON")
+
 
 if __name__ == "__main__":
     # config
     if len(sys.argv) > 1:
-        data = {'q':sys.argv[1]}
+        data = {'q': sys.argv[1]}
     else:
-        data = {'q':''}
+        data = {'q': ''}
     url = "http://0.0.0.0:5000/search_user"
     # init
     main(url, data)

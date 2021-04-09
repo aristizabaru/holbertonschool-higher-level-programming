@@ -1,4 +1,4 @@
-# #!/usr/bin/python3
+#!/usr/bin/python3
 """0-hbtn_status module"""
 from urllib import request
 import sys
