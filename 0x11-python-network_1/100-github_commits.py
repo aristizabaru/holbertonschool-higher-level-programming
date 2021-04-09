@@ -2,7 +2,6 @@
 """0-hbtn_status module"""
 import requests
 import sys
-import json
 
 
 def main(url):
