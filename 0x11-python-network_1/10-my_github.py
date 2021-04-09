@@ -11,6 +11,8 @@ def main(credentials):
     if session.status_code == requests.codes.ok:
         json_data = session.json()
         print(json_data['id'])
+    else:
+        print("None")
     session.close()
 
 
