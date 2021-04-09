@@ -5,9 +5,9 @@ import requests
 
 def main(req):
     """handles http request and print response"""
-    with requests.get(req) as response:
-        print("Body response:\n\t- type: {}\n\t- content: "
-              "{}".format(type(response.text), response.text))
+    response = requests.get(req)
+    print("Body response:\n\t- type: {}\n\t- content: "
+          "{}".format(type(response.text), response.text))
 
 
 if __name__ == "__main__":
