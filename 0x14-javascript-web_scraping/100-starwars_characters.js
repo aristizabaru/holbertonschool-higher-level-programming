@@ -16,8 +16,7 @@ request(url + id, function (error, response, body) {
   }
 });
 
-function fetchCast(jsonData) {
-  const cast = [];
+function fetchCast (jsonData) {
   for (const actorURL of jsonData.characters) {
     request(actorURL, function (error, response, body) {
       if (error) {
