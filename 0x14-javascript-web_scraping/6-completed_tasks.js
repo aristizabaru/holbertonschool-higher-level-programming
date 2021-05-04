@@ -19,7 +19,9 @@ request(url, function (error, response, body) {
 function returnObject (users, taskDone) {
   const resultObject = {};
   for (let i = 0; i < users.length; ++i) {
-    resultObject[users[i]] = taskDone[i];
+    if (taskDone[i] > 0) {
+      resultObject[users[i]] = taskDone[i];
+    }
   }
   return resultObject;
 }
